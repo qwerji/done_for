@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" ng-app='app'>
+<head>
+    <meta charset="UTF-8">
+    <title>Done For</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Space+Mono" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <script src='angular/angular.js'></script>
+    <script src='angular-route/angular-route.js'></script>
+    <script src='angular-audio/app/angular.audio.js'></script>
+    <script src='app.js'></script>
+    <script src='./controllers/sessionController.js'></script>
+    <script src='./factories/sessionFactory.js'></script>
+    <script src='./controllers/gameController.js'></script>
+    <script src='./factories/gameFactory.js'></script>
+</head> 
+<body>
+    <audio autoplay>
+        <source src="sounds/donefor_v1.wav" type="audio/wav">
+    </audio>
+    <div class="container">
+        <ng-view></ng-view>
+    </div><!--  /.container -->
+</body>
+</html>

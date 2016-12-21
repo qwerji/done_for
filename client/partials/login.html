@@ -1,0 +1,10 @@
+<div>
+    <h1>Done For</h1>
+    <form ng-submit='login()'>
+        <input type="text" ng-model='newUser.name' placeholder="Enter Your Name">
+        <input type="submit" value='Start' ng-audio="./../sounds/df_click.wav" ng-audio-hover="./../sounds/df_mouse.wav" volume-hover="1">
+    </form>
+    <ul>
+        <li ng-repeat='error in errors'>{{ error }}</li>
+    </ul>
+</div>

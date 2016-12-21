@@ -1,0 +1,19 @@
+* {
+    color: lightgreen;
+    font-family: 'Space Mono', monospace;
+}
+body {
+    background: #303030;
+}
+input, button {
+    background: #303030;
+    color: lightgreen;
+    transition: 0.08s linear all;
+}
+input[type="submit"]:hover ,button:hover {
+    background: white;
+}
+.container {
+    margin: 0px auto;
+    width: 600px;
+}
