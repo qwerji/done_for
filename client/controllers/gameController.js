@@ -42,7 +42,7 @@ app.controller('gameController', function($scope, sessionFactory, gameFactory, $
         }
     }
 
-    $scope.time = 10;
+    $scope.time = 1800;
     setInterval(function() {
         $scope.$apply(decrement)
     }, 1000)
