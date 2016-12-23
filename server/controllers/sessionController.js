@@ -4,22 +4,14 @@ var User = mongoose.model('User')
 module.exports = (function(){
     return {
         login: function(req, res){
-            User.findOne({name: req.body.name}, function(err,data){
-                if(!data){
-                    var newUser = new User(req.body)
-                    newUser.save(function(err, user){
-                        if(user){
-                            req.session.user = user._id;
-                            req.session.save()
-                            res.json({status: true})
-                        } else {
-                            res.json(err);
-                        }
-                    })
-                } else {
-                    req.session.user = data;
+            var newUser = new User(req.body)
+            newUser.save(function(err, user){
+                if(user){
+                    req.session.user = user._id;
                     req.session.save()
                     res.json({status: true})
+                } else {
+                    res.json(err);
                 }
             })
         },
