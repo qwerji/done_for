@@ -10,5 +10,10 @@ app.factory('sessionFactory', function($http, $location){
             cb(output.data);
         })
     }
+    factory.clear_session = function() {
+        $http.get('/logout').then(function(output) {
+            
+        })
+    }
     return factory;
 })

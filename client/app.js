@@ -1,4 +1,4 @@
-const app = angular.module('app', ['ngRoute', 'ngAudio']);
+const app = angular.module('app', ['ngRoute', 'ngAudio'])
 
 
 app.config(function($routeProvider){
@@ -14,4 +14,12 @@ app.config(function($routeProvider){
     .otherwise({
         redirectTo:'/login'
     })
+})
+
+app.config(function ($qProvider) { // stops possibly unhandled rejection
+    $qProvider.errorOnUnhandledRejections(false);
+})
+
+app.run(function(sessionFactory){ // clear session on page reload
+    sessionFactory.clear_session()
 })

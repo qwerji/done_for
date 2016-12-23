@@ -62,7 +62,7 @@ app.factory('gameFactory', function($http){
             img_url:'http://www.walldevil.com/wallpapers/a77/night-planet-sky-lake.jpg'
         },
         'Lake Hole': {
-            prompt: 'You swim through the dense lake and find once you reach the hole two paths you could take...',
+            prompt: 'You swim through the dense lake and find once you reach the hole two paths you could take. The left is pitch black, but you do have your flashlight.',
             options: [
                 { text: 'Take the left path', dest: 'Lake Hole Left'},
                 { text: 'Take the right path', dest: 'Lake Hole Right'},
@@ -121,12 +121,12 @@ app.factory('gameFactory', function($http){
                 }
             }
         }
-        if (hero.location == 'Left Lake Hole') {
+        if (hero.location == 'Lake Hole') {
             if (!hero.inventory['🔦']) {
                 let filtered_loc = {
-                    prompt: 'location'.prompt,
-                    options: [],
-                    items: [],
+                    prompt: 'You swim through the dense lake and find once you reach the hole two paths you could take. The left is pitch black...',
+                    options: location.options,
+                    items: location.items,
                     img_url: location.img_url
                 };
                 cb(filtered_loc)
