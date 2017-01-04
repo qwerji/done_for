@@ -3,23 +3,25 @@ const app = angular.module('app', ['ngRoute', 'ngAudio'])
 
 app.config(function($routeProvider){
     $routeProvider
-    .when('/login',{
+    .when('/login', {
         templateUrl:'partials/login.html',
         controller: 'sessionController'
     })
-    .when('/situation',{
+    .when('/situation', {
         templateUrl:'partials/situation.html',
         controller: 'sessionController'
     })
-    .otherwise({
-        redirectTo:'/login'
+    .when('/dead', {
+        templateUrl:'partials/dead.html',
+        controller: 'sessionController'
     })
+    .otherwise('/login')
 })
 
 app.config(function ($qProvider) { // stops possibly unhandled rejection
     $qProvider.errorOnUnhandledRejections(false);
 })
 
-app.run(function(sessionFactory){ // clear session on page reload
+app.run(function(sessionFactory, $location){ // clear session on page reload
     sessionFactory.clear_session()
 })

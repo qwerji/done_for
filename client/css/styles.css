@@ -17,3 +17,10 @@ input[type="submit"]:hover ,button:hover {
     margin: 0px auto;
     width: 600px;
 }
+.oxygen {
+    height: 30px;
+    transition: .7s ease all;
+}
+    .oxygen h4 {
+        float: right;
+    }

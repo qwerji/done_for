@@ -1,10 +1,10 @@
-var mongoose = require('mongoose');
-var User = mongoose.model('User')
+let mongoose = require('mongoose'),
+    User = mongoose.model('User')
 
 module.exports = (function(){
     return {
         login: function(req, res){
-            var newUser = new User(req.body)
+            let newUser = new User(req.body)
             newUser.save(function(err, user){
                 if(user){
                     req.session.user = user._id;

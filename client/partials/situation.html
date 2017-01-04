@@ -1,7 +1,10 @@
 <div ng-controller='gameController'>
     <a href="/logout" ng-audio="./../sounds/df_click.wav" ng-audio-hover="./../sounds/df_mouse.wav" volume-hover="1"><button>Restart</button></a>
-    <h4>Seconds until oxygen runs out: {{time}}</h4>
-    <p>Inventory:</p>
+    <!-- These ng-ifs should be on the divs that contain them eventually -->
+    <div class="oxygen" ng-if="curUser.inventory['👨‍🚀']" style="width: {{oxygen_percentage}}%; background: {{oxygen_color}};">
+        <h4>O<sub>2</sub>: {{oxygen_percentage}}%</h4>
+    </div>
+    <p ng-if="curUser.inventory['👨‍🚀'] || curUser.inventory['🔦']">Inventory:</p>
     <p ng-repeat="(key, value) in curUser.inventory" ng-if="value">{{ key }}</p>
     <h3>{{ curUser.name }} is at the {{ curUser.location }}</h3>
     <p>{{situation.prompt}}</p>

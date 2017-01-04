@@ -1,22 +1,20 @@
-app.factory('gameFactory', function($http){
+app.factory('gameFactory', function($http, $location){
     let factory = {};
     
     let map = {
         'Ship': {
             prompt: 'You survived the crash only to find that your oxygen is leaking...',
             options: [
-                {type: 'travel', text: 'Check console', dest:'Console'},
-                {type: 'travel', text: 'Check armory cabinet', dest: 'Armory'},
-                {type: 'travel', text: 'Leave the ship', dest: 'Outside Ship'},
+                {type: 'travel', text: 'Check Ship Computer', dest:'Ship Computer'},
+                {type: 'travel', text: 'Check Armory Cabinet', dest: 'Armory'},
+                {type: 'item', text: 'Put on EVA suit', name: 'EVA', icon: '👨‍🚀'}
             ],
             img_url:'http://orig04.deviantart.net/fa92/f/2011/107/e/2/passage_1_by_penemenn-d3e9aoh.jpg'
         },
-        'Console': {
-            prompt: 'The console appears to be broken but is currently displaying some information...',
+        'Ship Computer': {
+            prompt: 'Someone make this',
             options: [
-                {type: 'travel', text: 'Check atomspheric conditions', dest:'Atmosphere'},
-                {type: 'travel', text: 'Check information on life on the planet', dest: 'Life'},
-                {type: 'travel', text: 'Back to the ship main compartment', dest: 'Ship'},
+                {type: 'travel', text: 'Back to the ship main compartment', dest: 'Ship'}
             ],
             img_url:'http://ak6.picdn.net/shutterstock/videos/2038331/thumb/2.jpg'
         },
@@ -24,17 +22,17 @@ app.factory('gameFactory', function($http){
             prompt: 'All the weapons appear to be unusable...but there appears to be an undamaged flashlight.',
             options: [
                 {type: 'travel', text: 'Back to the ship main compartment', dest: 'Ship'},
-                {type: 'item/travel', text: 'Pick up the flashlight.', name: 'Flashlight', icon: '🔦', dest: 'Ship'}
+                {type: 'item', text: 'Pick up the flashlight.', name: 'Flashlight', icon: '🔦'},
             ],
             img_url:'http://i.imgur.com/18Z47Ll.jpg'
         },
-        'Outside Ship': {
+        'Crash Site': {
             prompt: 'Outside the ship you see that you can go three directions...',
             options: [
                 {type: 'travel', text: 'Go West to the Lake', dest: 'Lake'},
-                {type: 'travel', text: 'Go North to the wastes.', dest:'Wastes'},
+                {type: 'travel', text: 'Go North to the Wastes.', dest:'Wastes'},
                 {type: 'travel', text: 'Go East to the Crystal Forest', dest: 'Crystal Forest'},
-                {type: 'travel', text: 'Go into the ship', dest: 'Ship'},
+                {type: 'travel', text: 'Go into the Ship', dest: 'Ship'}
             ],
             img_url:'https://s-media-cache-ak0.pinimg.com/originals/07/5c/37/075c37b3bf9051d109092713f3a60b13.jpg'
         },
@@ -43,16 +41,16 @@ app.factory('gameFactory', function($http){
             options: [
                 {type: 'travel', text: 'Continue to investigate the forest', dest: 'Deep Forest'},
                 {type: 'travel', text: 'Climb through the hole in the crystal', dest: 'Crystal Hole'},
-                {type: 'travel', text: 'Go to the crash site.', dest: 'Outside Ship'},
+                {type: 'travel', text: 'Go to the crash site.', dest: 'Crash Site'},
             ],
             img_url:'http://www.hotel-r.net/im/hotel/ca/crystal-forest.jpg'
         },
         'Lake': {
-            prompt: 'You think you see something to the left of the lake in a copse of trees, also you think you notice a small hole in the bottom of the lake..',
+            prompt: 'You think you notice a small hole in the bottom of the lake...',
             options: [
-                {type: 'travel', text: 'Investigate the trees.', dest: 'Lake Investigate'},
                 {type: 'travel', text: 'Swim down and check out the hole.', dest: 'Lake Hole'},
-                {type: 'travel', text: 'Go to the crash site.', dest: 'Outside Ship'},
+                {type: 'death', text: 'Slip and die.', cause: 'You slipped'},
+                {type: 'travel', text: 'Go to the crash site.', dest: 'Crash Site'},
             ],
             img_url:'http://www.walldevil.com/wallpapers/a77/night-planet-sky-lake.jpg'
         },
@@ -100,7 +98,14 @@ app.factory('gameFactory', function($http){
                 }
             }
         }
-        // Situation logic here
+        if (hero.location == 'Ship') {
+            // If you have the EVA and the option to leave the ship hasn't already been pushed
+            if (hero.inventory['👨‍🚀']) {
+                if (location.options[location.options.length-1].dest !== 'Outside Ship') {
+                    location.options.push({type: 'travel', text: 'Leave the ship', dest: 'Crash Site'})
+                }
+            }
+        }
         cb(location)
     }
 
@@ -149,7 +154,12 @@ app.factory('gameFactory', function($http){
             change_attr(option)
             travel(option, cb)
         }
-        // needs type 'death'
+        else if (option.type == 'death') {
+            let cause = option.cause
+            $http.post('/die', {cause}).then(function(output) {
+                $location.url('/dead')
+            })
+        }
     }
 
     return factory;

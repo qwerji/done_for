@@ -1,0 +1,9 @@
+<div ng-controller="deathController">
+    <h2>{{loser.name}} is dead.</h2>
+    <h3>Cause of death: {{loser.cause_of_death}}</h3>
+    <h2>Recent deaths:</h2>
+    <ul>
+        <li ng-repeat="_loser in losers | orderBy : '-createdAt' | limitTo: 5">{{_loser.name}} - Cause: {{_loser.cause_of_death}}</li>
+    </ul>
+    <a href="/logout"><button>Back to Login</button></a>
+</div>

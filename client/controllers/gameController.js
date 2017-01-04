@@ -16,6 +16,9 @@ app.controller('gameController', function($scope, sessionFactory, gameFactory, $
     }
 
     $scope.do = function(option) {
+        if (option.type == 'item' && option.name == 'EVA') {
+            start_timer()
+        }
         gameFactory.do(option, function(){
             update()
         })
@@ -23,17 +26,35 @@ app.controller('gameController', function($scope, sessionFactory, gameFactory, $
 
     function decrement() {
         $scope.time = $scope.time - 1
+        $scope.oxygen_percentage = Math.floor(($scope.time/30) * 100)
+        if ($scope.oxygen_percentage <= 10) {
+            $scope.oxygen_color = 'red' // set these to HEX values eventually
+        }
+        else if ($scope.oxygen_percentage <= 25) {
+            $scope.oxygen_color = 'orange'
+        }
+        else if ($scope.oxygen_percentage <= 50) {
+            $scope.oxygen_color = 'yellow'
+        }
+        else if ($scope.oxygen_percentage <= 75) {
+            $scope.oxygen_color = 'green'
+        }
         if ($scope.time <= 0) {
-            alert("YOU'RE DEAD")
+            // alert("YOU'RE DEAD")
             // $location.url('/logout')
+            $scope.oxygen_percentage = 0
             $scope.time = 0
         }
     }
 
-    $scope.time = 1800;
-    setInterval(function() {
-        $scope.$apply(decrement)
-    }, 1000)
+    function start_timer(argument) {
+        $scope.time = 30;
+        $scope.oxygen_percentage = 100
+        $scope.oxygen_color = '#2983ac'
+        setInterval(function() {
+            $scope.$apply(decrement)
+        }, 1000)
+    }
 
     update()
 })
