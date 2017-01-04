@@ -6,6 +6,5 @@
     <h3>{{ curUser.name }} is at the {{ curUser.location }}</h3>
     <p>{{situation.prompt}}</p>
     <img src="{{ situation.img_url }}" style="width: 400px; display: block;">
-    <button ng-audio="./../sounds/df_click.wav" ng-audio-hover="./../sounds/df_mouse.wav" volume-hover="1" ng-repeat="option in situation.options" ng-click="go(option.dest)">{{ option.text }}</button>
-    <button ng-audio="./../sounds/df_click.wav" ng-audio-hover="./../sounds/df_mouse.wav" ng-repeat="item in situation.items" ng-click="get_item(item.icon)">{{ item.icon }} {{ item.name }}</button>
+    <button ng-audio="./../sounds/df_click.wav" ng-audio-hover="./../sounds/df_mouse.wav" volume-hover="1" ng-repeat="option in situation.options" ng-click="do(option)">{{ option.text }}</button>
 </div>

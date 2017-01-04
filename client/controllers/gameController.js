@@ -6,7 +6,7 @@ app.controller('gameController', function($scope, sessionFactory, gameFactory, $
     }
 
     function update(){
-        sessionFactory.curUser(function(data){
+        sessionFactory.curUser($scope.time, function(data){
             $scope.curUser = data;
             if(!$scope.curUser){
                 $location.url('/login');
@@ -15,29 +15,17 @@ app.controller('gameController', function($scope, sessionFactory, gameFactory, $
         })
     }
 
-    $scope.go = function(dest) {
-        gameFactory.go({dest}, function(){
+    $scope.do = function(option) {
+        gameFactory.do(option, function(){
             update()
         })
-    }
-
-    $scope.get_item = function(item) {
-        gameFactory.get_item({item}, function() {
-            update()
-        })
-    }
-
-    function onTimeout() {
-        alert('Done For')
     }
 
     function decrement() {
         $scope.time = $scope.time - 1
         if ($scope.time <= 0) {
-            if ($scope.curUser.location !== 'Cave') {
-                alert("YOU'RE DEAD")
-                $location.url('/logout')
-            }
+            alert("YOU'RE DEAD")
+            // $location.url('/logout')
             $scope.time = 0
         }
     }

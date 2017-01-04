@@ -5,8 +5,8 @@ app.factory('sessionFactory', function($http, $location){
             $location.url('/situation');
         });
     }
-    factory.curUser = function(cb){
-        $http.get('/curUser').then(function(output){
+    factory.curUser = function(time, cb){
+        $http.post('/curUser', {time}).then(function(output){
             cb(output.data);
         })
     }

@@ -6,7 +6,9 @@ var userSchema = mongoose.Schema({
     inventory: {
         "🔦": {type: Boolean, default: false}
     },
-    location: {type: String, default:'Ship'}
+    location: {type: String, default:'Ship'},
+    time_played: Number,
+    cause_of_death: String
 })
 
 mongoose.model('User', userSchema);

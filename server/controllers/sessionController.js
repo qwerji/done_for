@@ -17,21 +17,11 @@ module.exports = (function(){
         },
         curUser: function(req, res){
             User.findOne({_id: req.session.user}, function(err, user){
+                if (user){
+                    user.time_played = +((1800 - req.body.time)/60).toFixed(2)
+                    user.save()
+                }
                 res.json(user)
-            })
-        },
-        go: function(req, res){
-            User.findOne({_id: req.session.user}, function(err, user){
-                user.location = req.body.dest;
-                user.save()
-                res.json({status: true})
-            })
-        },
-        get_item: function(req, res) {
-            User.findOne({_id: req.session.user}, function(err, user){
-                user.inventory[req.body.item] = true;
-                user.save()
-                res.json({status: true})
             })
         },
         logout: function(req, res){
