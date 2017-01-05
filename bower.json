@@ -1,12 +1,12 @@
 {
-  "name": "sadbook2",
+  "name": "done_for",
   "description": "",
   "main": "index.js",
   "authors": [
-    "ty <iamtylerwarren@gmail.com>"
+    "Ben Swanson <bentswanson@gmail.com>"
   ],
   "license": "ISC",
-  "homepage": "",
+  "homepage": "https://github.com/qwerji/done_for",
   "ignore": [
     "**/.*",
     "node_modules",
@@ -15,10 +15,8 @@
     "tests"
   ],
   "dependencies": {
-    "angular": "^1.6.0",
-    "angular-route": "^1.6.0",
-    "bower": "*",
-    "install": "^1.0.4",
-    "angular-audio": "^1.7.3"
+    "angular": "^1.6.1",
+    "angular-audio": "^1.7.3",
+    "angular-route": "^1.6.1"
   }
 }

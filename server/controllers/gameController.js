@@ -1,6 +1,7 @@
 let mongoose = require('mongoose'),
     User = mongoose.model('User'),
-    Loser = mongoose.model('Loser')
+    Loser = mongoose.model('Loser'),
+    Winner = mongoose.model('Winner')
 
 module.exports = (function(){
     return {
@@ -29,6 +30,20 @@ module.exports = (function(){
                     _id: user._id
                 })
                 new_loser.save(function(err, loser) {
+                    user.remove()
+                    res.json({status: true})
+                })
+            })
+        },
+        win: function(req, res) {
+            User.findOne({_id: req.session.user}, function(err, user){
+                let new_winner = new Winner({
+                    name: user.name,
+                    time_played: user.time_played,
+                    inventory: user.inventory,
+                    _id: user._id
+                })
+                new_winner.save(function(err, winner) {
                     user.remove()
                     res.json({status: true})
                 })

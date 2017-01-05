@@ -18,7 +18,7 @@ module.exports = (function(){
         curUser: function(req, res){
             User.findOne({_id: req.session.user}, function(err, user){
                 if (user){
-                    user.time_played = +((1800 - req.body.time)/60).toFixed(2)
+                    user.time_played = +((600 - req.body.time)/60).toFixed(2)
                     user.save()
                 }
                 res.json(user)

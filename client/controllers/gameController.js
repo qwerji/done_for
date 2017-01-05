@@ -1,4 +1,4 @@
-app.controller('gameController', function($scope, sessionFactory, gameFactory, $location, ngAudio) {
+app.controller('gameController', function($scope, sessionFactory, gameFactory, $location, ngAudio, $route, $location, $window) {
     function get_situation() {
         gameFactory.get_situation($scope.curUser, function(situation) {
             $scope.situation = situation;
@@ -9,7 +9,8 @@ app.controller('gameController', function($scope, sessionFactory, gameFactory, $
         sessionFactory.curUser($scope.time, function(data){
             $scope.curUser = data;
             if(!$scope.curUser){
-                $location.url('/login');
+                $window.location.reload()
+                $location.url('/login')
             }
             get_situation()
         })
@@ -24,11 +25,17 @@ app.controller('gameController', function($scope, sessionFactory, gameFactory, $
         })
     }
 
+    // Sets allowed play time in seconds
+    const initial_time = 600
+
     function decrement() {
         $scope.time = $scope.time - 1
-        $scope.oxygen_percentage = Math.floor(($scope.time/30) * 100)
+
+        // Converts time left to percentage, for styling
+        $scope.oxygen_percentage = Math.floor(($scope.time/initial_time) * 100)
+
         if ($scope.oxygen_percentage <= 10) {
-            $scope.oxygen_color = 'red' // set these to HEX values eventually
+            $scope.oxygen_color = 'red' // set these to HEX values that match line 57 eventually
         }
         else if ($scope.oxygen_percentage <= 25) {
             $scope.oxygen_color = 'orange'
@@ -48,7 +55,7 @@ app.controller('gameController', function($scope, sessionFactory, gameFactory, $
     }
 
     function start_timer(argument) {
-        $scope.time = 30;
+        $scope.time = initial_time;
         $scope.oxygen_percentage = 100
         $scope.oxygen_color = '#2983ac'
         setInterval(function() {

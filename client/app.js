@@ -15,6 +15,10 @@ app.config(function($routeProvider){
         templateUrl:'partials/dead.html',
         controller: 'sessionController'
     })
+    .when('/winner', {
+        templateUrl:'partials/win.html',
+        controller: 'sessionController'
+    })
     .otherwise('/login')
 })
 
@@ -22,6 +26,6 @@ app.config(function ($qProvider) { // stops possibly unhandled rejection
     $qProvider.errorOnUnhandledRejections(false);
 })
 
-app.run(function(sessionFactory, $location){ // clear session on page reload
+app.run(function(sessionFactory){ // clear session on page reload
     sessionFactory.clear_session()
 })

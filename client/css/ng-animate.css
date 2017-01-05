@@ -1,0 +1,9 @@
+*.ng-enter {
+    transition: 1.5s ease all;
+    opacity: 0;
+    transform: translateY(10px);
+}
+*.ng-enter.ng-enter-active {
+    opacity: 1;
+    transform: translateX(0px);
+}
