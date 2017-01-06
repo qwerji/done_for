@@ -295,7 +295,7 @@ app.factory('gameFactory', function($http, $location, $window){
             get_item(option, cb)
         }
         else if (option.type == 'item/travel') {
-            travel(option, cb)
+            travel(option)
             get_item(option, cb)
         }
         else if (option.type == 'attr') {
