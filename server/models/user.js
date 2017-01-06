@@ -4,10 +4,10 @@ let mongoose = require('mongoose'),
 var userSchema = mongoose.Schema({
     name: {type: String, required: true},
     inventory: {
-        "🖱️": {type: Boolean, default: false},
-        "🔫️": {type: Boolean, default: false},
-        "🔴️": {type: Boolean, default: false},
-        "🔷️": {type: Boolean, default: false},
+        "🖱": {type: Boolean, default: false},
+        "🔫": {type: Boolean, default: false},
+        "🔴": {type: Boolean, default: false},
+        "🔷": {type: Boolean, default: false},
         "💚": {type: Boolean, default: false},
         "🔦": {type: Boolean, default: false},
         "🔋": {type: Boolean, default: false}

@@ -8,6 +8,7 @@ module.exports = function(app){
     app.get('/logout', session.logout)
     app.post('/go', game.go)
     app.post('/get_item', game.get_item)
+    app.post('/lose_item', game.lose_item)
     app.get('/win', game.win)
     app.post('/die', game.die)
     app.get('/get_losers', end.get_losers)

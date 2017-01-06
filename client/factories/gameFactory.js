@@ -3,12 +3,22 @@ app.factory('gameFactory', function($http, $location, $window){
 
     let attributes = {
         'used_staircase': false,
+
         'is_in_wastes': false,
         'wastes_coords': [0, 0],
+
         'opening_depth': 0,
+
         'monster_killed': false,
+
         'alien_flashlight': false,
-        'alien_rude': false
+        'alien_rude': false,
+
+        'floor_lasered': false,
+
+        'left_switch': true,
+        'middle_switch': false,
+        'right_switch': false
     }
 
     factory.get_situation = function(hero, cb) {
@@ -68,6 +78,12 @@ app.factory('gameFactory', function($http, $location, $window){
             if (hero.inventory['💚']) {
                 situation.prompt = 'You enter a gleaming cavern, with clusters of crystals clinging to every surface. There is an opening on the left wall that looks like you could squeeze your way into. You also notice a crystal stairway to your right.'
             }
+            if (attributes['floor_lasered']) {
+                situation.options[1] = {type: 'travel', text: 'Enter the floor door', dest: 'Base'}
+            }
+            if (attributes['used_staircase']) {
+                situation.options[3] = {type: 'travel', text: 'Climb the stairway', dest: 'Forest Exterior'}
+            }
         }
         else if (hero.location == 'Cavern Opening') {
             if (attributes['opening_depth'] <= 0) {
@@ -81,8 +97,66 @@ app.factory('gameFactory', function($http, $location, $window){
                 situation.options = []
             }
         }
+        else if (hero.location == 'Crystal Search') {
+            if (hero.inventory['🔫']) {
+                situation.options = [
+                    {type: 'attr/travel', text: 'Use your Digger Laser on the door', attr: 'floor_lasered', dest:'Base'},
+                    {type: 'travel', text: 'Go back', dest: 'Crystal Cavern'}
+                ]
+            }
+        }
+        else if (hero.location == 'Base') {
+            if (!hero.inventory['🔦']) {
+                situation.options[1] = {type: 'death', text: 'Enter the pitch-black open doorway', cause: 'No flashlight dark room'}
+            }
+            else {
+                situation.options[1] = {type: 'travel', text: 'Enter the pitch-black open doorway', dest: 'Dark Room'}
+            }
+        }
+        else if (hero.location == 'Console') {
+            situation.options[4] = {type: 'death', text: 'Press the large button', cause: 'Wrong Switch Order'}
+            if (attributes['left_switch']) {
+                //display +--
+                situation.img_url = 'imgs/switches/+--.svg'
+                if (attributes['middle_switch']) {
+                    //display ++-
+                    situation.img_url = 'imgs/switches/++-.svg'
+                    if (attributes['right_switch']) {
+                        //display +++
+                        situation.img_url = 'imgs/switches/+++.svg'
+                    }
+                }
+                else if (attributes['right_switch']) {
+                    //display +-+
+                    situation.img_url = 'imgs/switches/+-+.svg'
+                    //replace death option with success
+                    situation.options[4] = {type: 'travel', text: 'Press the large button', dest: 'Active Command Center'}
+                }
+            }
+            else if (attributes['right_switch']) {
+                //display --+
+                situation.img_url = 'imgs/switches/--+.svg'
+                if (attributes['middle_switch']) {
+                    //display -++
+                    situation.img_url = 'imgs/switches/-++.svg'
+                }
+            }
+            else if (attributes['middle_switch']) {
+                //display -+-
+                situation.img_url = 'imgs/switches/-+-.svg'
+            }
+            else {
+                //display ---
+                situation.img_url = 'imgs/switches/---.svg'
+            }
+        }
+        else if (hero.location == 'Active Command Center') {
+            if (hero.inventory['🔷']) {
+                situation.prompt = 'The command center comes to life around you, lights turning on and machines humming. The strange machine in the corner appears to have been activated as well.'
+            }
+        }
         else if (hero.location == 'Behind Ship') {
-            if (hero.inventory['🔫️']) {
+            if (hero.inventory['🔫']) {
                 situation = {
                     prompt: "There's nothing here but some wreckage from the crash.",
                     options: [
@@ -94,9 +168,9 @@ app.factory('gameFactory', function($http, $location, $window){
             }
             else if (attributes['monster_killed']) {
                     situation.prompt = 'You attempt to attack the monster head on. But right before you make contact, it sees the glint of the red crystal on your belt. It immediately rears up and runs in the opposite direction. After the monster rummaged through the wreckage, you notice your Digger Laser amongst the debris.'
-                    situation.options = [{type: 'item', text: 'Pick up the Digger Laser', name: 'Digger Laser', icon: '🔫️'}]
+                    situation.options = [{type: 'item', text: 'Pick up the Digger Laser', name: 'Digger Laser', icon: '🔫'}]
             }
-            else if (hero.inventory['💚'] || hero.inventory['🔴️'] || hero.inventory['🔷️']) {
+            else if (hero.inventory['💚'] || hero.inventory['🔴'] || hero.inventory['🔷']) {
                 situation = {
                     prompt: "As you walk around your crashed ship, a large, horrible looking creature is rummaging through the wreckage, comes into view. It notices you and starts advancing towards you.",
                     options: [
@@ -105,13 +179,18 @@ app.factory('gameFactory', function($http, $location, $window){
                     ],
                     img_url:'http://i0.kym-cdn.com/photos/images/original/000/581/296/c09.jpg'
                 }
-                if (hero.inventory['🔴️']) {
+                if (hero.inventory['🔴']) {
                     situation.options[0] = {type: 'attr', text: 'Fight it', attr: 'monster_killed'}
                 }
             }
         }
+        else if (hero.location == 'Forest Exterior') {
+            if (attributes['used_staircase']) {
+                situation.options[3] = {type: 'travel', text: 'Take the Crystal Stairway', dest: 'Crystal Cavern'}
+            }
+        }
         else if (hero.location == 'Flat Crystal Area') {
-            if (hero.inventory['🖱️']) {
+            if (hero.inventory['🖱']) {
                 situation.prompt = 'You find nothing.'
             }
         }
@@ -126,31 +205,45 @@ app.factory('gameFactory', function($http, $location, $window){
                     situation.prompt = "After yelling at the Alien, it seems very irritated and won't acknowledge you. Oops."
                 }
             }
-            else if (hero.inventory['🔴️']) {
+            else if (hero.inventory['🔴'] || !hero.inventory['🖱']) {
                 situation.options = [
                     {type: 'attr', text: 'Show it the Flashlight', attr: 'alien_flashlight'},
                     {type: 'attr', text: '"What the heck are you?!"', attr: 'alien_rude'},
                     {type: 'travel', text: 'Go Back', dest: 'Forest Interior'},
                 ]
-                if (hero.inventory['🔴️'] && hero.inventory['🔷️'] && hero.inventory['💚']) {
+                if (hero.inventory['🔴'] && hero.inventory['🔷'] && hero.inventory['💚']) {
                     situation.options[3] = {type: 'win', text: 'Show it the 3 Stones'}
                 }
             }
         }
+
         cb(situation)
     }
 
-    function travel(option, cb) {
+    function travel(option, cb=null) {
         let dest = option.dest
         $http.post('/go', {dest}).then(function(output){
-            cb()
+            if (cb) {
+                cb()
+            }
         })
     }
 
-    function get_item(option, cb) {
+    function get_item(option, cb=null) {
         let item = option.icon
         $http.post('/get_item', {item}).then(function(output) {
-            cb()
+            if (cb) {
+                cb()
+            }
+        })
+    }
+
+    function lose_item(option, cb=null) {
+        let item = option.lost_icon
+        $http.post('/lose_item', {item}).then(function(output) {
+            if (cb) {
+                cb()
+            }
         })
     }
 
@@ -210,6 +303,11 @@ app.factory('gameFactory', function($http, $location, $window){
         }
         else if (option.type == 'attr/travel') {
             change_attr(option)
+            travel(option, cb)
+        }
+        else if (option.type == 'item/lose_item/travel') {
+            get_item(option)
+            lose_item(option)
             travel(option, cb)
         }
         else if (option.type == 'death') {

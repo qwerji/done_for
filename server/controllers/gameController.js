@@ -21,6 +21,13 @@ module.exports = (function(){
                 res.json({status: true})
             })
         },
+        lose_item: function(req, res) {
+            User.findOne({_id: req.session.user}, function(err, user){
+                user.inventory[req.body.item] = false;
+                user.save()
+                res.json({status: true})
+            })
+        },
         die: function(req, res) {
             User.findOne({_id: req.session.user}, function(err, user){
                 let new_loser = new Loser({

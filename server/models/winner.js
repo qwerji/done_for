@@ -5,10 +5,10 @@ var winnerSchema = mongoose.Schema({
     name: String,
     time_played: Number,
     inventory: {
-        "🖱️": Boolean,
-        "🔫️": Boolean,
-        "🔴️": Boolean,
-        "🔷️": Boolean,
+        "🖱": Boolean,
+        "🔫": Boolean,
+        "🔴": Boolean,
+        "🔷": Boolean,
         "💚": Boolean,
         "🔦": Boolean,
         "🔋": Boolean
