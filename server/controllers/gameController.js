@@ -16,15 +16,19 @@ module.exports = (function(){
         },
         get_item: function(req, res) {
             User.findOne({_id: req.session.user}, function(err, user){
-                user.inventory[req.body.item] = true;
-                user.save()
+                if (user) {
+                    user.inventory[req.body.item] = true;
+                    user.save()
+                }
                 res.json({status: true})
             })
         },
         lose_item: function(req, res) {
             User.findOne({_id: req.session.user}, function(err, user){
-                user.inventory[req.body.item] = false;
-                user.save()
+                if (user) {
+                    user.inventory[req.body.item] = false;
+                    user.save()
+                }
                 res.json({status: true})
             })
         },

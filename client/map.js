@@ -4,7 +4,7 @@ let worldMap = {
         options: [
             {type: 'travel', text: 'Check Ship Computer', dest:'Ship Computer'},
             {type: 'travel', text: 'Check Armory Cabinet', dest: 'Armory'},
-            {type: 'item', text: 'Put on EVA suit', name: 'EVA', icon: '🔋'}
+            {type: 'item', text: 'Put on EVA suit', name: 'eva'}
         ],
         img_url:'http://orig04.deviantart.net/fa92/f/2011/107/e/2/passage_1_by_penemenn-d3e9aoh.jpg'
     },
@@ -19,7 +19,7 @@ let worldMap = {
         prompt: 'All the weapons appear to be unusable...but there appears to be an undamaged flashlight.',
         options: [
             {type: 'travel', text: 'Back to the ship main compartment', dest: 'Ship'},
-            {type: 'item', text: 'Pick up the flashlight.', name: 'Flashlight', icon: '🔦'},
+            {type: 'item', text: 'Pick up the flashlight.', name: 'flashlight'},
         ],
         img_url:'http://i.imgur.com/18Z47Ll.jpg'
     },
@@ -54,7 +54,7 @@ let worldMap = {
     'Flat Crystal Area': {
         prompt: 'You see a flat crystal on the ground.',
         options: [
-            {type: 'item', text: 'Pick up the Flat Crystal', name: 'Flat Crystal', icon: '🖱'},
+            {type: 'item', text: 'Pick up the Flat Crystal', name: 'flat_crystal'},
             {type: 'travel', text: 'Go Back', dest: 'Forest Interior'},
         ],
         img_url:'http://www.hotel-r.net/im/hotel/ca/crystal-forest.jpg'
@@ -72,7 +72,7 @@ let worldMap = {
     'Get Red Stone': {
         prompt: 'You show it the Flat Crystal. He seems confused, and hits the Crystal out of your hand. The Alien then reveals a Red Stone, offering it to you.',
         options: [
-            {type: 'item/lose_item/travel', text: 'Take the Red Stone', name: 'Red Stone', icon: '🔴', lost_icon:'🖱', dest: "Alien's House"}
+            {type: 'item/lose_item/travel', text: 'Take the Red Stone', name: 'red_stone', lost_name:'flat_crystal', dest: "Alien's House"}
         ],
         img_url:'http://www.hotel-r.net/im/hotel/ca/crystal-forest.jpg'
     },
@@ -130,7 +130,7 @@ let worldMap = {
     'Crystal Cavern': {
         prompt: 'You enter a gleaming cavern, with clusters of crystals clinging to every surface. There is a green stone on the ground in front of you. There is an opening on the left wall that looks like you could squeeze your way into. You also notice a crystal stairway to your right.',
         options: [
-            {type: 'item', text: 'Pick up green stone', name: 'Green Stone', icon: '💚'},
+            {type: 'item', text: 'Pick up green stone', name: 'green_stone'},
             {type: 'death', text: '"...Hello?"', cause: 'Said hello'},
             {type: 'travel', text: 'Search the crystals', dest: 'Crystal Search'},
             {type: 'travel', text: 'Enter the opening', dest: 'Cavern Opening'},
@@ -221,7 +221,7 @@ let worldMap = {
     'Active Command Center': {
         prompt: 'The command center comes to life around you, lights turning on and machines humming. The strange machine in the corner appears to have been activated as well. A compartment on the console opens up the console, presenting you with a blue stone.',
         options: [
-            {type: 'item', text: 'Take the Blue Stone', name: 'Blue Stone', icon: '🔷'},
+            {type: 'item', text: 'Take the Blue Stone', name: 'blue_stone'},
             {type: 'travel', text: 'Step into the strange machine', dest: 'Wastes'}
         ],
         img_url:'http://i0.kym-cdn.com/photos/images/original/000/581/296/c09.jpg'

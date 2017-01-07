@@ -1,4 +1,4 @@
-app.controller('sessionController',function($scope, sessionFactory, gameFactory, $location, ngAudio){
+app.controller('sessionController',function($scope, sessionFactory, $location){
     $scope.login = function(){
         $scope.errors = [];
         if(!$scope.newUser || !$scope.newUser.name){

@@ -2,9 +2,7 @@
     <h2>Congratulations, {{winner.name}}!</h2>
     <h3>Time Played: {{winner.time_played}}</h3>
     <h3>Inventory:</h3>
-    <ul>
-        <li ng-if="value" ng-repeat="(item, value) in winner.inventory">{{item}}</li>
-    </ul>
+    <img ng-repeat="(key, value) in winner.inventory" ng-if="value" style="width: 25px;" src="imgs/items/{{key}}.svg">
     <h2>Recent wins:</h2>
     <ul>
         <li ng-repeat="_winner in winners | orderBy : '-createdAt' | limitTo: 5">{{_winner.name}} - Time Played: {{_winner.time_played}}</li>

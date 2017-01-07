@@ -21,7 +21,7 @@ app.factory('gameFactory', function($http, $location, $window){
         if (situation.options.length) {
             for (var i = 0; i < situation.options.length; i++) {
                 if (situation.options[i].type == 'item' || 'item/travel') {
-                    if (hero.inventory[situation.options[i].icon]) {
+                    if (hero.inventory[situation.options[i].name]) {
                         situation.options.splice(i,1)
                     }
                 }
@@ -31,14 +31,14 @@ app.factory('gameFactory', function($http, $location, $window){
         //  Location-based Logic
         if (hero.location == 'Ship') {
             // If you have the EVA and the option to leave the ship hasn't already been pushed
-            if (hero.inventory['🔋']) {
+            if (hero.inventory['eva']) {
                 if (situation.options[situation.options.length-1].dest !== 'Crash Site') {
                     situation.options.push({type: 'travel', text: 'Leave the ship', dest: 'Crash Site'})
                 }
             }
         }
         else if (hero.location == 'Armory') {
-            if (hero.inventory['🔦']) {
+            if (hero.inventory['flashlight']) {
                 situation.prompt = 'All the weapons appear to be unusable...'
             }
         }
@@ -62,17 +62,17 @@ app.factory('gameFactory', function($http, $location, $window){
             }
         }
         else if (hero.location == 'Lake Hole') {
-            if (hero.inventory['🔦']) {
+            if (hero.inventory['flashlight']) {
                 situation.options[0] = {type: 'travel', text: 'Take the pitch-black left tunnel', dest: 'Inscriptions'}
             }
         }
         else if (hero.location == 'Lake Tunnel') {
-            if (hero.inventory['🔦']) {
+            if (hero.inventory['flashlight']) {
                 situation.options[0] = {type: 'death', text: 'Take the pitch-black left tunnel', cause: 'Killed by a giant eel'}
             }
         }
         else if (hero.location == 'Crystal Cavern') {
-            if (hero.inventory['💚']) {
+            if (hero.inventory['green_stone']) {
                 situation.prompt = 'You enter a gleaming cavern, with clusters of crystals clinging to every surface. There is an opening on the left wall that looks like you could squeeze your way into. You also notice a crystal stairway to your right.'
             }
             if (attributes['floor_lasered']) {
@@ -92,7 +92,7 @@ app.factory('gameFactory', function($http, $location, $window){
             }
         }
         else if (hero.location == 'Crystal Search') {
-            if (hero.inventory['🔫']) {
+            if (hero.inventory['digger_laser']) {
                 situation.options = [
                     {type: 'attr/travel', text: 'Use your Digger Laser on the door', attr: 'floor_lasered', dest:'Base'},
                     {type: 'travel', text: 'Go back', dest: 'Crystal Cavern'}
@@ -100,7 +100,7 @@ app.factory('gameFactory', function($http, $location, $window){
             }
         }
         else if (hero.location == 'Base') {
-            if (!hero.inventory['🔦']) {
+            if (!hero.inventory['flashlight']) {
                 situation.options[1] = {type: 'death', text: 'Enter the pitch-black open doorway', cause: 'No flashlight dark room'}
             }
             else {
@@ -138,12 +138,12 @@ app.factory('gameFactory', function($http, $location, $window){
             }
         }
         else if (hero.location == 'Active Command Center') {
-            if (hero.inventory['🔷']) {
+            if (hero.inventory['blue_stone']) {
                 situation.prompt = 'The command center comes to life around you, lights turning on and machines humming. The strange machine in the corner appears to have been activated as well.'
             }
         }
         else if (hero.location == 'Behind Ship') {
-            if (hero.inventory['🔫']) {
+            if (hero.inventory['digger_laser']) {
                 situation = {
                     prompt: "There's nothing here but some wreckage from the crash.",
                     options: [
@@ -155,9 +155,9 @@ app.factory('gameFactory', function($http, $location, $window){
             }
             else if (attributes['monster_killed']) {
                     situation.prompt = 'You attempt to attack the monster head on. But right before you make contact, it sees the glint of the red crystal on your belt. It immediately rears up and runs in the opposite direction. After the monster rummaged through the wreckage, you notice your Digger Laser amongst the debris.'
-                    situation.options = [{type: 'item', text: 'Pick up the Digger Laser', name: 'Digger Laser', icon: '🔫'}]
+                    situation.options = [{type: 'item', text: 'Pick up the Digger Laser', name: 'digger_laser'}]
             }
-            else if (hero.inventory['💚'] || hero.inventory['🔴'] || hero.inventory['🔷']) {
+            else if (hero.inventory['green_stone'] || hero.inventory['red_stone'] || hero.inventory['blue_stone']) {
                 situation = {
                     prompt: "As you walk around your crashed ship, a large, horrible looking creature is rummaging through the wreckage, comes into view. It notices you and starts advancing towards you.",
                     options: [
@@ -166,7 +166,7 @@ app.factory('gameFactory', function($http, $location, $window){
                     ],
                     img_url:'http://i0.kym-cdn.com/photos/images/original/000/581/296/c09.jpg'
                 }
-                if (hero.inventory['🔴']) {
+                if (hero.inventory['red_stone']) {
                     situation.options[0] = {type: 'attr', text: 'Fight it', attr: 'monster_killed'}
                 }
             }
@@ -177,7 +177,7 @@ app.factory('gameFactory', function($http, $location, $window){
             }
         }
         else if (hero.location == 'Flat Crystal Area') {
-            if (hero.inventory['🖱']) {
+            if (hero.inventory['flat_crystal']) {
                 situation.prompt = 'You find nothing.'
             }
         }
@@ -192,13 +192,13 @@ app.factory('gameFactory', function($http, $location, $window){
                     situation.prompt = "After yelling at the Alien, it seems very irritated and won't acknowledge you. Oops."
                 }
             }
-            else if (hero.inventory['🔴'] || !hero.inventory['🖱']) {
+            else if (hero.inventory['red_stone'] || !hero.inventory['flat_crystal']) {
                 situation.options = [
                     {type: 'attr', text: 'Show it the Flashlight', attr: 'alien_flashlight'},
                     {type: 'attr', text: '"What the heck are you?!"', attr: 'alien_rude'},
                     {type: 'travel', text: 'Go Back', dest: 'Forest Interior'},
                 ]
-                if (hero.inventory['🔴'] && hero.inventory['🔷'] && hero.inventory['💚']) {
+                if (hero.inventory['red_stone'] && hero.inventory['blue_stone'] && hero.inventory['green_stone']) {
                     situation.options[3] = {type: 'win', text: 'Show it the 3 Stones'}
                 }
             }
@@ -217,7 +217,7 @@ app.factory('gameFactory', function($http, $location, $window){
     }
 
     function get_item(option, cb=null) {
-        let item = option.icon
+        let item = option.name
         $http.post('/get_item', {item}).then(function(output) {
             if (cb) {
                 cb()
@@ -226,7 +226,7 @@ app.factory('gameFactory', function($http, $location, $window){
     }
 
     function lose_item(option, cb=null) {
-        let item = option.lost_icon
+        let item = option.lost_name
         $http.post('/lose_item', {item}).then(function(output) {
             if (cb) {
                 cb()

@@ -7,6 +7,7 @@ app.controller('gameController', function($scope, sessionFactory, gameFactory, $
 
     function update(){
         sessionFactory.curUser($scope.time, function(data){
+            console.log(data)
             $scope.curUser = data;
             if(!$scope.curUser){
                 $window.location.reload()
@@ -17,7 +18,7 @@ app.controller('gameController', function($scope, sessionFactory, gameFactory, $
     }
 
     $scope.do = function(option) {
-        if (option.type == 'item' && option.name == 'EVA') {
+        if (option.type == 'item' && option.name == 'eva') {
             start_timer()
         }
         gameFactory.do(option, function(){

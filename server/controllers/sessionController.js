@@ -17,11 +17,13 @@ module.exports = (function(){
         },
         curUser: function(req, res){
             User.findOne({_id: req.session.user}, function(err, user){
-                if (user && req.body.time){
-                    user.time_played = +((600 - req.body.time)/60).toFixed(2)
-                    user.save()
+                if (user){
+                    if (req.body.time) {
+                        user.time_played = +((600 - req.body.time)/60).toFixed(2)
+                        user.save()
+                    }
+                    res.json(user)
                 }
-                res.json(user)
             })
         },
         logout: function(req, res){
