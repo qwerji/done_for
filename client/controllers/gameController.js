@@ -47,8 +47,7 @@ app.controller('gameController', function($scope, sessionFactory, gameFactory, $
             $scope.oxygen_color = 'green'
         }
         if ($scope.time <= 0) {
-            // alert("YOU'RE DEAD")
-            // $location.url('/logout')
+            gameFactory.do({type: 'death', cause: 'Suffocated'})
             $scope.oxygen_percentage = 0
             $scope.time = 0
         }

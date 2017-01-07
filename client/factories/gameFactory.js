@@ -286,7 +286,7 @@ app.factory('gameFactory', function($http, $location, $window){
         }
     }
 
-    factory.do = function(option, cb) {
+    factory.do = function(option, cb=null) {
         // Parses selected option's type
         if (option.type == 'travel') {
             travel(option, cb)
