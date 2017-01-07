@@ -7,7 +7,6 @@ app.controller('gameController', function($scope, sessionFactory, gameFactory, $
 
     function update(){
         sessionFactory.curUser($scope.time, function(data){
-            console.log(data)
             $scope.curUser = data;
             if(!$scope.curUser){
                 $window.location.reload()
