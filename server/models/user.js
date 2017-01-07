@@ -2,8 +2,7 @@ let mongoose = require('mongoose'),
     Schema = mongoose.Schema
 
 var userSchema = mongoose.Schema({
-    // Allotted seconds + 60
-    createdAt: { type: Date, expires: 660, default: Date.now },
+    createdAt: { type: Date, expires: 86400, default: Date.now },
     name: {type: String, required: true},
     inventory: {
         "🖱": {type: Boolean, default: false},

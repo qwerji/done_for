@@ -27,7 +27,7 @@ app.controller('gameController', function($scope, sessionFactory, gameFactory, $
 
     // Sets allowed play time in seconds
     // If you are changing this, you also need to change it in the back end  
-    // session controller, and in the user schema (for the mongoose expiry)
+    // session controller
     const initial_time = 600
 
     function decrement() {
