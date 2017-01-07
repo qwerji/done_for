@@ -3,22 +3,14 @@ app.factory('gameFactory', function($http, $location, $window){
 
     let attributes = {
         'used_staircase': false,
-
         'is_in_wastes': false,
         'wastes_coords': [0, 0],
-
         'opening_depth': 0,
-
         'monster_killed': false,
-
         'alien_flashlight': false,
         'alien_rude': false,
-
         'floor_lasered': false,
-
-        'left_switch': true,
-        'middle_switch': false,
-        'right_switch': false
+        'switches': [true, false, false]
     }
 
     factory.get_situation = function(hero, cb) {
@@ -43,6 +35,11 @@ app.factory('gameFactory', function($http, $location, $window){
                 if (situation.options[situation.options.length-1].dest !== 'Crash Site') {
                     situation.options.push({type: 'travel', text: 'Leave the ship', dest: 'Crash Site'})
                 }
+            }
+        }
+        else if (hero.location == 'Armory') {
+            if (hero.inventory['🔦']) {
+                situation.prompt = 'All the weapons appear to be unusable...'
             }
         }
         else if (hero.location == 'Wastes') {
@@ -79,10 +76,7 @@ app.factory('gameFactory', function($http, $location, $window){
                 situation.prompt = 'You enter a gleaming cavern, with clusters of crystals clinging to every surface. There is an opening on the left wall that looks like you could squeeze your way into. You also notice a crystal stairway to your right.'
             }
             if (attributes['floor_lasered']) {
-                situation.options[1] = {type: 'travel', text: 'Enter the floor door', dest: 'Base'}
-            }
-            if (attributes['used_staircase']) {
-                situation.options[3] = {type: 'travel', text: 'Climb the stairway', dest: 'Forest Exterior'}
+                situation.options[situation.options.length-3] = {type: 'travel', text: 'Enter the floor door', dest: 'Base'}
             }
         }
         else if (hero.location == 'Cavern Opening') {
@@ -115,39 +109,32 @@ app.factory('gameFactory', function($http, $location, $window){
         }
         else if (hero.location == 'Console') {
             situation.options[4] = {type: 'death', text: 'Press the large button', cause: 'Wrong Switch Order'}
-            if (attributes['left_switch']) {
-                //display +--
-                situation.img_url = 'imgs/switches/+--.svg'
-                if (attributes['middle_switch']) {
-                    //display ++-
+            switch(attributes['switches'].join()){
+                case 'false,false,false':
+                    situation.img_url = 'imgs/switches/---.svg'
+                    break
+                case 'true,false,false':
+                    situation.img_url = 'imgs/switches/+--.svg'
+                    break
+                case 'true,true,false':
                     situation.img_url = 'imgs/switches/++-.svg'
-                    if (attributes['right_switch']) {
-                        //display +++
-                        situation.img_url = 'imgs/switches/+++.svg'
-                    }
-                }
-                else if (attributes['right_switch']) {
-                    //display +-+
-                    situation.img_url = 'imgs/switches/+-+.svg'
-                    //replace death option with success
-                    situation.options[4] = {type: 'travel', text: 'Press the large button', dest: 'Active Command Center'}
-                }
-            }
-            else if (attributes['right_switch']) {
-                //display --+
-                situation.img_url = 'imgs/switches/--+.svg'
-                if (attributes['middle_switch']) {
-                    //display -++
+                    break
+                case 'true,true,true':
+                    situation.img_url = 'imgs/switches/+++.svg'
+                    break
+                case 'false,true,true':
                     situation.img_url = 'imgs/switches/-++.svg'
-                }
-            }
-            else if (attributes['middle_switch']) {
-                //display -+-
-                situation.img_url = 'imgs/switches/-+-.svg'
-            }
-            else {
-                //display ---
-                situation.img_url = 'imgs/switches/---.svg'
+                    break
+                case 'false,false,true':
+                    situation.img_url = 'imgs/switches/--+.svg'
+                    break
+                case 'false,true,false':
+                    situation.img_url = 'imgs/switches/-+-.svg'
+                    break
+                case 'true,false,true':
+                    situation.img_url = 'imgs/switches/+-+.svg'
+                    situation.options[4] = {type: 'travel', text: 'Press the large button', dest: 'Active Command Center'}
+                    break
             }
         }
         else if (hero.location == 'Active Command Center') {
@@ -268,6 +255,17 @@ app.factory('gameFactory', function($http, $location, $window){
         }
         else if (option.attr == 'opening_dec') {
             attributes['opening_depth']--
+        }
+
+        // Console switches
+        else if (option.attr == 'left_switch'){
+            attributes['switches'][0] = !attributes['switches'][0]
+        }
+        else if (option.attr == 'middle_switch'){
+            attributes['switches'][1] = !attributes['switches'][1]
+        }
+        else if (option.attr == 'right_switch'){
+            attributes['switches'][2] = !attributes['switches'][2]
         }
 
         // Boolean attributes changes
