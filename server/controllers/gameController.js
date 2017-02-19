@@ -34,30 +34,34 @@ module.exports = (function(){
         },
         die: function(req, res) {
             User.findOne({_id: req.session.user}, function(err, user){
-                let new_loser = new Loser({
-                    name: user.name,
-                    time_played: user.time_played,
-                    cause_of_death: req.body.cause,
-                    _id: user._id
-                })
-                new_loser.save(function(err, loser) {
-                    user.remove()
-                    res.json({status: true})
-                })
+                if (user) {
+                    let new_loser = new Loser({
+                        name: user.name,
+                        time_played: user.time_played,
+                        cause_of_death: req.body.cause,
+                        _id: user._id
+                    })
+                    new_loser.save(function(err, loser) {
+                        user.remove()
+                        res.json({status: true})
+                    })
+                }
             })
         },
         win: function(req, res) {
-            User.findOne({_id: req.session.user}, function(err, user){
-                let new_winner = new Winner({
-                    name: user.name,
-                    time_played: user.time_played,
-                    inventory: user.inventory,
-                    _id: user._id
-                })
-                new_winner.save(function(err, winner) {
-                    user.remove()
-                    res.json({status: true})
-                })
+            User.findOne({ _id: req.session.user }, function(err, user) {
+                if (user) {
+                    let new_winner = new Winner({
+                        name: user.name,
+                        time_played: user.time_played,
+                        inventory: user.inventory,
+                        _id: user._id
+                    })
+                    new_winner.save(function(err, winner) {
+                        user.remove()
+                        res.json({ status: true })
+                    })
+                }
             })
         }
     }

@@ -1,7 +1,10 @@
 app.controller('gameController', function($scope, sessionFactory, gameFactory, $location, ngAudio, $route, $location, $window) {
-    function get_situation() {
-        gameFactory.get_situation($scope.curUser, function(situation) {
-            $scope.situation = situation;
+    $scope.do = function(option) {
+        if (option.type == 'item' && option.name == 'eva') {
+            start_timer()
+        }
+        gameFactory.do(option, function(){
+            update()
         })
     }
 
@@ -15,13 +18,10 @@ app.controller('gameController', function($scope, sessionFactory, gameFactory, $
             get_situation()
         })
     }
-
-    $scope.do = function(option) {
-        if (option.type == 'item' && option.name == 'eva') {
-            start_timer()
-        }
-        gameFactory.do(option, function(){
-            update()
+    
+    function get_situation() {
+        gameFactory.get_situation($scope.curUser, function(situation) {
+            $scope.situation = situation;
         })
     }
 

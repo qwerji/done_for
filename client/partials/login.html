@@ -1,8 +1,11 @@
+<div class="loginGroup">
     <h1>Done For</h1>
-    <form ng-submit='login()'>
+    <p class="subtitle">A choose-your-own-adventure game.</p>
+    <form ng-submit='login()' class="login">
         <input type="text" ng-model='newUser.name' placeholder="Enter Your Name" autofocus>
         <input ng-click="update()" type="submit" value='Start' ng-audio="./../sounds/df_click.wav" ng-audio-hover="./../sounds/df_mouse.wav" volume-hover="1">
     </form>
     <ul>
         <li ng-repeat='error in errors'>{{ error }}</li>
     </ul>
+</div><!--  /.loginGroup -->
