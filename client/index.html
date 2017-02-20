@@ -20,20 +20,16 @@
     <script src='./controllers/sessionController.js'></script>
     <script src='./factories/sessionFactory.js'></script>
     <script src='./controllers/gameController.js'></script>
+    <script src='./controllers/audioController.js'></script>
     <script src='./factories/gameFactory.js'></script>
     <script src='./controllers/endController.js'></script>
     <script src='./factories/endFactory.js'></script>
-
+    <!-- Set Viewport -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
 </head>
 <body>
-    <!-- <audio autoplay loop>
-        <source src="sounds/donefor_v1.wav" type="audio/wav">
-    </audio> -->
-    <ng-view></ng-view>
-    <footer>
-        <p>&copy; 2017 <a href="http://bentswanson.com">Ben Swanson</a> All Rights Reserved | <a href="https://github.com/qwerji/done_for">GitHub</a></p>
-    </footer>
+    <div ng-controller="audioController">
+        <ng-view></ng-view>
+    </div>
 </body>
 </html>

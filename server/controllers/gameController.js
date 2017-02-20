@@ -7,6 +7,7 @@ module.exports = (function(){
     return {
         go: function(req, res){
             User.findOne({_id: req.session.user}, function(err, user){
+                if (err) { console.log(err) }
                 if (user) {
                     user.location = req.body.dest;
                     user.save()
@@ -16,6 +17,7 @@ module.exports = (function(){
         },
         get_item: function(req, res) {
             User.findOne({_id: req.session.user}, function(err, user){
+                if (err) { console.log(err) }
                 if (user) {
                     user.inventory[req.body.item] = true;
                     user.save()
@@ -25,6 +27,7 @@ module.exports = (function(){
         },
         lose_item: function(req, res) {
             User.findOne({_id: req.session.user}, function(err, user){
+                if (err) { console.log(err) }
                 if (user) {
                     user.inventory[req.body.item] = false;
                     user.save()
@@ -34,6 +37,7 @@ module.exports = (function(){
         },
         die: function(req, res) {
             User.findOne({_id: req.session.user}, function(err, user){
+                if (err) { console.log(err) }
                 if (user) {
                     let new_loser = new Loser({
                         name: user.name,
@@ -42,14 +46,16 @@ module.exports = (function(){
                         _id: user._id
                     })
                     new_loser.save(function(err, loser) {
+                        if (err) { console.log(err) }
                         user.remove()
-                        res.json({status: true})
                     })
                 }
+                res.json({status: true})
             })
         },
         win: function(req, res) {
             User.findOne({ _id: req.session.user }, function(err, user) {
+                if (err) { console.log(err) }
                 if (user) {
                     let new_winner = new Winner({
                         name: user.name,
@@ -58,10 +64,11 @@ module.exports = (function(){
                         _id: user._id
                     })
                     new_winner.save(function(err, winner) {
+                        if (err) { console.log(err) }
                         user.remove()
-                        res.json({ status: true })
                     })
                 }
+                res.json({ status: true })
             })
         }
     }

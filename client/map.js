@@ -89,14 +89,14 @@ const GameStateManager = function() {
         }
         else if (hero.location == 'Armory') {
             if (hero.inventory['flashlight']) {
-                situation.prompt = 'All the weapons appear to be unusable...'
+                situation.prompt = 'All of the weapons appear to be unusable.'
             }
         }
         else if (hero.location == 'Wastes') {
             // Sets wastes options to wandering mode, if you are IN the wastes
             if (attributes['is_in_wastes']) {
                 situation = {
-                    prompt: 'You wander aimlessly in the Wastes. You wonder if this was a good idea.',
+                    prompt: 'You wander aimlessly in the Wastes. You begin to wonder if this was a good idea.',
                     options: [
                         {type: 'attr', text: 'Walk north into the Wastes', attr: 'n_wastes'},
                         {type: 'attr', text: 'Walk east into the Wastes', attr: 'e_wastes'},
@@ -118,7 +118,7 @@ const GameStateManager = function() {
         }
         else if (hero.location == 'Lake Tunnel') {
             if (hero.inventory['flashlight']) {
-                situation.options[0] = {type: 'death', text: 'Take the pitch-black left tunnel', cause: 'Killed by a giant eel'}
+                situation.options[0] = {type: 'death', text: 'Take the pitch-black left tunnel', cause: 'Killed by something in the dark.'}
             }
         }
         else if (hero.location == 'Crystal Cavern') {
@@ -151,14 +151,14 @@ const GameStateManager = function() {
         }
         else if (hero.location == 'Base') {
             if (!hero.inventory['flashlight']) {
-                situation.options[1] = {type: 'death', text: 'Enter the pitch-black open doorway', cause: 'No flashlight dark room'}
+                situation.options[1] = {type: 'death', text: 'Enter the pitch-black open doorway', cause: 'Killed by something in the dark.'}
             }
             else {
                 situation.options[1] = {type: 'travel', text: 'Enter the pitch-black open doorway', dest: 'Dark Room'}
             }
         }
         else if (hero.location == 'Console') {
-            situation.options[4] = {type: 'death', text: 'Press the large button', cause: 'Wrong Switch Order'}
+            situation.options[4] = {type: 'death', text: 'Press the large button', cause: 'Being incorrect.'}
             switch(attributes['switches'].join()){
                 case 'false,false,false':
                     situation.img_url = 'imgs/switches/---.svg'
@@ -209,10 +209,10 @@ const GameStateManager = function() {
             }
             else if (hero.inventory['green_stone'] || hero.inventory['red_stone'] || hero.inventory['blue_stone']) {
                 situation = {
-                    prompt: "As you walk around your crashed ship, a large, horrible looking creature is rummaging through the wreckage, comes into view. It notices you and starts advancing towards you.",
+                    prompt: "As you walk around your crashed ship a large, horrible looking creature that is rummaging through the wreckage comes into view. It notices you and starts advancing.",
                     options: [
-                        {type: 'death', text: 'Fight it', cause: 'Killed by monster (brave)'},
-                        {type: 'death', text: 'Run', cause: 'Killed by monster (coward)'}
+                        {type: 'death', text: 'Fight it', cause: 'Died bravely in battle.'},
+                        {type: 'death', text: 'Run', cause: 'Died like a coward.'}
                     ],
                     img_url:'http://i0.kym-cdn.com/photos/images/original/000/581/296/c09.jpg'
                 }
@@ -259,7 +259,7 @@ const GameStateManager = function() {
 
     let worldMap = {
         'Ship': {
-            prompt: "You survived the crash only to find that the ship's oxygen is leaking...",
+            prompt: "You awaken in the main cabin of your spacecraft. You were supposed to be in cryo on your way home from a research mission. The interior of the ship is disheveled and quite damaged. You suspect an oxygen leak, and imagine there isn't much time before it runs out.",
             options: [
                 { type: 'travel', text: 'Check Ship Computer', dest: 'Ship Computer' },
                 { type: 'travel', text: 'Check Armory Cabinet', dest: 'Armory' },
@@ -268,14 +268,14 @@ const GameStateManager = function() {
             img_url: 'http://orig04.deviantart.net/fa92/f/2011/107/e/2/passage_1_by_penemenn-d3e9aoh.jpg'
         },
         'Ship Computer': {
-            prompt: 'Someone make this',
+            prompt: "You check the ship's computer, which tells you that the atmospheric conditions of the unknown planet you have landed on will not support human life. However, there are trace readings of other life forms.",
             options: [
                 { type: 'travel', text: 'Back to the ship main compartment', dest: 'Ship' }
             ],
             img_url: 'http://ak6.picdn.net/shutterstock/videos/2038331/thumb/2.jpg'
         },
         'Armory': {
-            prompt: 'All the weapons appear to be unusable...but there appears to be an undamaged flashlight.',
+            prompt: 'All the weapons appear to be unusable but there appears to be an undamaged flashlight.',
             options: [
                 { type: 'travel', text: 'Back to the ship main compartment', dest: 'Ship' },
                 { type: 'item', text: 'Pick up the flashlight', name: 'flashlight' },
@@ -283,7 +283,7 @@ const GameStateManager = function() {
             img_url: 'http://i.imgur.com/18Z47Ll.jpg'
         },
         'Crash Site': {
-            prompt: 'Outside the ship you see that you can go three directions...',
+            prompt: 'Outside the ship you can see three landmarks.',
             options: [
                 { type: 'travel', text: 'Go North to the Wastes', dest: 'Wastes' },
                 { type: 'travel', text: 'Go East to the Crystal Forest', dest: 'Forest Exterior' },
@@ -293,7 +293,7 @@ const GameStateManager = function() {
             img_url: 'https://s-media-cache-ak0.pinimg.com/originals/07/5c/37/075c37b3bf9051d109092713f3a60b13.jpg'
         },
         'Forest Exterior': {
-            prompt: 'Standing at the entrance to the forest you notice a hole in one of the crystals nearby...',
+            prompt: 'Standing at the entrance to the forest of crystals you notice a hole in one of the crystals nearby.',
             options: [
                 { type: 'travel', text: 'Enter the forest', dest: 'Forest Interior' },
                 { type: 'travel', text: 'Go behind the ship', dest: 'Behind Ship' },
@@ -302,7 +302,7 @@ const GameStateManager = function() {
             img_url: 'http://www.hotel-r.net/im/hotel/ca/crystal-forest.jpg'
         },
         'Forest Interior': {
-            prompt: 'You are in the forest',
+            prompt: 'Inside the forest there are two paths that seem well traveled.',
             options: [
                 { type: 'travel', text: 'Continue to investigate the forest', dest: 'Flat Crystal Area' },
                 { type: 'travel', text: 'Climb through the hole in the crystal', dest: "Alien's House" },
@@ -353,7 +353,7 @@ const GameStateManager = function() {
             img_url: 'http://i0.kym-cdn.com/photos/images/original/000/581/296/c09.jpg'
         },
         'Lake': {
-            prompt: 'You think you notice a small hole in the bottom of the lake...',
+            prompt: "You think you notice a small hole in the bottom of the lake. Your EVA suit should allow you to enter the lake's mysterious liquid.",
             options: [
                 { type: 'travel', text: 'Swim down and check out the hole', dest: 'Lake Hole' },
                 { type: 'travel', text: 'Go behind the ship', dest: 'Behind Ship' },
@@ -362,9 +362,9 @@ const GameStateManager = function() {
             img_url: 'http://www.walldevil.com/wallpapers/a77/night-planet-sky-lake.jpg'
         },
         'Lake Hole': {
-            prompt: 'You swim through the dense lake and find once you reach the hole two tunnels you could take. The left is pitch black.',
+            prompt: 'You swim through the dark lake and once you reach the hole, two tunnels branch off from it. Both are quite dark.',
             options: [
-                { type: 'death', text: 'Take the pitch-black left tunnel', cause: 'Drowned in Lake Hole' },
+                { type: 'death', text: 'Take the pitch-black left tunnel', cause: 'Drowned.' },
                 { type: 'travel', text: 'Take the right tunnel', dest: 'Lake Tunnel' },
                 { type: 'travel', text: 'Swim back to the surface', dest: 'Lake' }
             ],
@@ -378,9 +378,9 @@ const GameStateManager = function() {
             img_url: 'http://i0.kym-cdn.com/photos/images/original/000/581/296/c09.jpg'
         },
         'Lake Tunnel': {
-            prompt: 'There are two tunnels. The left is pitch black.',
+            prompt: 'You reach two more tunnels.',
             options: [
-                { type: 'death', text: 'Take the pitch-black left tunnel', cause: 'Killed by eel (no flashlight)' },
+                { type: 'death', text: 'Take the pitch-black left tunnel', cause: 'Killed by something in the dark.' },
                 { type: 'travel', text: 'Take the right tunnel', dest: 'Crystal Cavern' }
             ],
             img_url: 'http://i0.kym-cdn.com/photos/images/original/000/581/296/c09.jpg'
@@ -389,7 +389,7 @@ const GameStateManager = function() {
             prompt: 'You enter a gleaming cavern, with clusters of crystals clinging to every surface. There is a green stone on the ground in front of you. There is an opening on the left wall that looks like you could squeeze your way into. You also notice a crystal stairway to your right.',
             options: [
                 { type: 'item', text: 'Pick up green stone', name: 'green_stone' },
-                { type: 'death', text: '"...Hello?"', cause: 'Said hello' },
+                { type: 'death', text: '"...Hello?"', cause: 'Shhh...' },
                 { type: 'travel', text: 'Search the crystals', dest: 'Crystal Search' },
                 { type: 'travel', text: 'Enter the opening', dest: 'Cavern Opening' },
                 { type: 'attr/travel', text: 'Climb the stairway', dest: 'Forest Exterior', attr: 'used_staircase' }
@@ -422,7 +422,7 @@ const GameStateManager = function() {
         'Dark Room': {
             prompt: 'You enter the Dark Room, shining your flashlight in front of you. Your stomach flips when you see a group of horrible looking aliens huddled in the corner. They simultaneously turn, make a blood-curdling sound and lunge towards you.',
             options: [
-                { type: 'death', text: 'Fight them', cause: 'Killed by dark room aliens' },
+                { type: 'death', text: 'Fight them', cause: 'Killed by horrible monsters.' },
                 { type: 'travel', text: 'Run', dest: 'Command Center' }
             ],
             img_url: 'http://i0.kym-cdn.com/photos/images/original/000/581/296/c09.jpg'
@@ -430,7 +430,7 @@ const GameStateManager = function() {
         'Hallway': {
             prompt: 'You reach another hallway, with another pitch-black doorway to your right. On your left, there is another door. You begin to hear some terrifying noises coming from an indiscernable location.',
             options: [
-                { type: 'death', text: 'Enter the pitch-black doorway', cause: 'Killed in second hallway' },
+                { type: 'death', text: 'Enter the pitch-black doorway', cause: 'Killed by horrible monsters.' },
                 { type: 'travel', text: 'Enter the left door', dest: 'Command Center' }
             ],
             img_url: 'http://i0.kym-cdn.com/photos/images/original/000/581/296/c09.jpg'
@@ -470,8 +470,8 @@ const GameStateManager = function() {
             prompt: 'The console has three switches in the middle that stand out to you, with a larger button below them.',
             options: [
                 { type: 'attr', text: 'Flip the Left Switch', attr: 'left_switch' },
-                { type: 'attr', text: 'Flip the Middle Switch', attr: 'middle_switch' },
                 { type: 'attr', text: 'Flip the Right Switch', attr: 'right_switch' },
+                { type: 'attr', text: 'Flip the Middle Switch', attr: 'middle_switch' },
                 { type: 'travel', text: 'Step away from the console', dest: 'Command Center' }
             ],
             img_url: 'http://i0.kym-cdn.com/photos/images/original/000/581/296/c09.jpg'

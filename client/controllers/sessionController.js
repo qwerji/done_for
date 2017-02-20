@@ -1,17 +1,22 @@
 app.controller('sessionController',function($scope, sessionFactory, $location){
     $scope.login = function(){
-        $scope.errors = [];
         if(!$scope.newUser || !$scope.newUser.name){
-            $scope.errors.push('Please enter a name')
+            $scope.error = 'Please enter a name'
         } else {
-            sessionFactory.login($scope.newUser);
+            sessionFactory.login($scope.newUser)
         }
     }
 
     sessionFactory.curUser(function(data){
-        $scope.curUser = data;
+        $scope.curUser = data
         if(!$scope.curUser){
             $location.url('/login')
         }
     })
+
+    $scope.logout = function() {
+        sessionFactory.clear_session(function() {
+            $location.url('/login')
+        })
+    }
 })

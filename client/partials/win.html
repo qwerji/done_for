@@ -7,5 +7,5 @@
     <ul>
         <li ng-repeat="_winner in winners | orderBy : '-createdAt' | limitTo: 5">{{_winner.name}} - Time Played: {{_winner.time_played}}</li>
     </ul>
-    <a href="/logout"><button>Back to Login</button></a>
+    <a ng-click="mousedown(); logout();"><button>Back to Login</button></a>
 </div>
