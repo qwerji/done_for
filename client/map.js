@@ -1,5 +1,9 @@
 const GameStateManager = function() {
 
+    this.get = function() {
+        return new GameStateManager()
+    }
+
     this.getSituation = function(hero) {
         return this.filter(worldMap[hero.location], hero)
     }

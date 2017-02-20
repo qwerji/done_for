@@ -64,6 +64,6 @@ app.controller('gameController', function($scope, sessionFactory, gameFactory, $
             $scope.$apply(decrement)
         }, 1000)
     }
-
+    
     update()
 })

@@ -41,6 +41,7 @@ app.factory('gameFactory', function($http, $location, $window){
     }
 
     factory.get_situation = function(hero, cb) {
+        game = game.get()
         cb(game.getSituation(hero))
     }
 
