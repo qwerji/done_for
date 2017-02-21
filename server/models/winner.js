@@ -1,7 +1,7 @@
 let mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
-var winnerSchema = mongoose.Schema({
+let winnerSchema = mongoose.Schema({
     name: String,
     time_played: Number,
     inventory: {

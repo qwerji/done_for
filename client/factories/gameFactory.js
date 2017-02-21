@@ -28,20 +28,24 @@ app.factory('gameFactory', function($http, $location, $window){
             travel(option, cb)
         }
         else if (option.type == 'death') {
-            let cause = option.cause
-            $http.post('/die', {cause}).then(function(output) {
+            factory.refresh()
+            $http.post('/die', {cause: option.cause}).then(function(output) {
                 $location.url('/dead')
             })
         }
         else if (option.type == 'win') {
+            factory.refresh()
             $http.get('/win').then(function(output) {
                 $location.url('/winner')
             })
         }
     }
 
+    factory.refresh = function() {
+        game = game.refresh()
+    }
+
     factory.get_situation = function(hero, cb) {
-        game = game.get()
         cb(game.getSituation(hero))
     }
 

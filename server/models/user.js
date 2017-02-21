@@ -1,7 +1,7 @@
 let mongoose = require('mongoose'),
     Schema = mongoose.Schema
 
-var userSchema = mongoose.Schema({
+let userSchema = mongoose.Schema({
     name: {type: String, required: true},
     inventory: {
         "flat_crystal": {type: Boolean, default: false},
@@ -13,7 +13,7 @@ var userSchema = mongoose.Schema({
         "eva": {type: Boolean, default: false}
     },
     time_played: Number,
-    location: {type: String, default:'Ship'},
+    location: {type: String, default:'Ship'}
 }, {timestamps: true})
 
 mongoose.model('User', userSchema)

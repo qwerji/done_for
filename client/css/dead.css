@@ -1,0 +1,47 @@
+div.endGroup {
+    text-align: center;
+}
+    div.endGroup button {
+        margin-bottom: 10px;
+    }
+    h2:first-of-type {
+        font-size: 35px;
+        margin-bottom: 10px;
+    }
+    h3 {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+    table {
+        text-align: left;
+        margin: 0 auto 10px;
+    }
+        td img {
+            width: 30px;
+        }
+        tr td {
+            font-size: 15px;
+            padding: 5px 15px 0;
+            height: 30px;
+            background: #666666;
+        }
+        tr td:first-of-type {
+            padding: 5px 15px;
+            background: #464646;
+        }
+        td.inventory {
+            padding: 5px;
+        }
+
+
+/* Mobile */
+@media all and (max-width: 768px) {
+
+}
+
+/* Desktop */
+@media all and (min-width: 769px){
+    div.endGroup {
+        margin-top: 7%;
+    }
+}

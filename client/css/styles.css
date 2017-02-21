@@ -115,7 +115,7 @@ div.hud {
         padding: 5px;
         background: #666666;
     }
-        div.hud .subHud img {
+        div.hud .subHud img, div.endGroup td img {
             height: 30px;
             float: left;
             margin-right: 2px;

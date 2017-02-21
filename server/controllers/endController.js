@@ -10,8 +10,13 @@ module.exports = (function(){
             }
             Loser.findOne({_id: req.session.user}, function(err, loser) {
                 Loser.find({}, function(err, losers) {
-                    losers.splice(losers.length-1,1)
-                    return res.json({loser: loser, losers: losers})
+                    if (err) { console.log(err) }
+                    if (losers) {
+                        losers.splice(losers.length-1,1)
+                        res.json({loser: loser, losers: losers})
+                    } else {
+                        res.json(null)
+                    }
                 })
             })
         },
@@ -21,8 +26,13 @@ module.exports = (function(){
             }
             Winner.findOne({_id: req.session.user}, function(err, winner) {
                 Winner.find({}, function(err, winners) {
-                    winners.splice(winners.length-1,1)
-                    return res.json({winner: winner, winners: winners})
+                    if (err) { console.log(err) }
+                    if (winners) {
+                        winners.splice(winners.length-1,1)
+                        res.json({winner: winner, winners: winners})
+                    } else {
+                        res.json(null)
+                    }
                 })
             })
         }

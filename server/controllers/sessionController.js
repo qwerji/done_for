@@ -8,7 +8,7 @@ module.exports = (function(){
             newUser.save(function(err, user){
                 if (err) { console.log(err) }
                 if(user){
-                    req.session.user = user._id;
+                    req.session.user = user._id
                     req.session.save()
                     res.json({status: true})
                 } else {

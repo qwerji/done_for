@@ -1,4 +1,4 @@
-app.controller('sessionController',function($scope, sessionFactory, $location){
+app.controller('sessionController',function($scope, sessionFactory, $location, gameFactory){
     $scope.login = function(){
         if(!$scope.newUser || !$scope.newUser.name){
             $scope.error = 'Please enter a name'
@@ -15,6 +15,7 @@ app.controller('sessionController',function($scope, sessionFactory, $location){
     })
 
     $scope.logout = function() {
+        gameFactory.refresh()
         sessionFactory.clear_session(function() {
             $location.url('/login')
         })

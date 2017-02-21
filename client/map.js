@@ -1,11 +1,11 @@
 const GameStateManager = function() {
 
-    this.get = function() {
+    this.refresh = function() {
         return new GameStateManager()
     }
 
     this.getSituation = function(hero) {
-        return this.filter(worldMap[hero.location], hero)
+        return filter(worldMap[hero.location], hero)
     }
 
     this.changeAttr = function(option) {
@@ -78,7 +78,7 @@ const GameStateManager = function() {
         }
     }
 
-    this.filter = function(situation, hero) {
+    function filter(situation, hero) {
         
         removeItem(situation, hero)
 
