@@ -139,10 +139,13 @@ div.hud {
 .imgContainer {
     padding: 5px;
     background: #464646;
+    height: 250px;
+    width: 98%;
 }
     .imgContainer img {
         display: block;
-        width: 100%;
+        height: 100%;
+        margin: 0 auto;
     }
 
 .option {
