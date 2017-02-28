@@ -490,3 +490,4 @@ const GameStateManager = function() {
         }
     }
 }
+

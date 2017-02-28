@@ -1,4 +1,4 @@
-app.controller('gameController', function($scope, sessionFactory, gameFactory, $location, ngAudio, $route, $location, $window) {
+app.controller('gameController', function($scope, sessionFactory, gameFactory, $location, ngAudio, $window) {
 
     $scope.do = function(option) {
         if (option.type == 'item' && option.name == 'eva') {
