@@ -1,48 +1,55 @@
 app.factory('gameFactory', function($http, $location, $window){
     let factory = {};
 
-    let game = new GameStateManager()
+    let game = GameStateManager
 
     factory.do = function(option, cb=null) {
         // Parses selected option's type
-        if (option.type == 'travel') {
-            travel(option, cb)
-        }
-        else if (option.type == 'item') {
-            get_item(option, cb)
-        }
-        else if (option.type == 'item/travel') {
-            travel(option)
-            get_item(option, cb)
-        }
-        else if (option.type == 'attr') {
-            change_attr(option, cb)
-        }
-        else if (option.type == 'attr/travel') {
-            change_attr(option)
-            travel(option, cb)
-        }
-        else if (option.type == 'item/lose_item/travel') {
-            get_item(option)
-            lose_item(option)
-            travel(option, cb)
-        }
-        else if (option.type == 'death') {
-            factory.refresh()
-            $http.post('/die', {cause: option.cause}).then(function(output) {
-                $location.url('/dead')
-            })
-        }
-        else if (option.type == 'win') {
-            factory.refresh()
-            $http.get('/win').then(function(output) {
-                $location.url('/winner')
-            })
+        switch(option.type) {
+            case 'travel':
+                travel(option, cb)
+                break
+            case 'item':
+                get_item(option, cb)
+                break
+            case 'item/travel':
+                travel(option)
+                get_item(option, cb)
+                break
+            case 'attr':
+                change_attr(option, cb)
+                break
+            case 'attr/travel':
+                change_attr(option)
+                travel(option, cb)
+                break
+            case 'item/lose_item/travel':
+                get_item(option)
+                lose_item(option)
+                travel(option, cb)
+                break
+            case 'death':
+                factory.refresh()
+                $http.post('/die', {cause: option.cause}).then(function(output) {
+                    $location.url('/dead')
+                })
+                break
+            case 'win':
+                factory.refresh()
+                $http.get('/win').then(function(output) {
+                    $location.url('/winner')
+                })
+                break
+            default:
+                factory.refresh()
+                $http.post('/die', {cause: 'Cheating'}).then(function(output) {
+                    $location.url('/dead')
+                })
         }
     }
 
     factory.refresh = function() {
-        game = game.refresh()
+        game.refresh()
     }
 
     factory.get_situation = function(hero, cb) {

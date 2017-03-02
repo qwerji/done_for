@@ -3,6 +3,7 @@ app.controller('sessionController',function($scope, sessionFactory, $location, g
         if(!$scope.newUser || !$scope.newUser.name){
             $scope.error = 'Please enter a name'
         } else {
+            gameFactory.refresh()
             sessionFactory.login($scope.newUser)
         }
     }

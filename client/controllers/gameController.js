@@ -22,7 +22,7 @@ app.controller('gameController', function($scope, sessionFactory, gameFactory, $
     
     function get_situation() {
         gameFactory.get_situation($scope.curUser, function(situation) {
-            $scope.situation = situation;
+            $scope.situation = situation
         })
     }
 
@@ -38,7 +38,7 @@ app.controller('gameController', function($scope, sessionFactory, gameFactory, $
         $scope.oxygen_percentage = Math.floor(($scope.time/initial_time) * 100)
 
         if ($scope.oxygen_percentage <= 10) {
-            $scope.oxygen_color = 'red' // set these to HEX values that match line 57 eventually
+            $scope.oxygen_color = 'red'
         }
         else if ($scope.oxygen_percentage <= 25) {
             $scope.oxygen_color = 'orange'
