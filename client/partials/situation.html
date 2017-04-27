@@ -13,8 +13,8 @@
         <div class="hud oxygenContainer">
             <h3><span>O<sub>2</sub></span></h3>
             <div class="subHud">
-                <div class="oxygen" ng-if="curUser.inventory['eva']" style="width: {{oxygen_percentage}}%; background: {{oxygen_color}};">
-                    <h4>{{oxygen_percentage}}%</h4>
+                <div class="oxygen" ng-if="curUser.inventory['eva']" style="width: {{oxygenPercentage}}%; background: {{oxygenColor}};">
+                    <h4>{{oxygenPercentage}}%</h4>
                 </div>
             </div>
         </div><!--  /.oxygenContainer 
@@ -27,7 +27,7 @@
         <h3 class="prompt mobileOnly">{{situation.prompt}}</h3>
         <div class="imgSpacer">
             <div class="imgContainer">
-                <img src="{{ situation.img_url }}">
+                <img src="{{ situation.imgURL }}">
             </div><!--  /.imgContainer -->
         </div><!--  /.imgSpacer
      --><div class="promptContainer desktopOnly">

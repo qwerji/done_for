@@ -1,31 +1,30 @@
 app.factory('gameFactory', function($http, $location, $window){
-    let factory = {};
 
-    let game = GameStateManager
+    const factory = {}
 
-    factory.do = function(option, cb=null) {
+    factory.do = (option, cb=null) => {
         // Parses selected option's type
         switch(option.type) {
             case 'travel':
                 travel(option, cb)
                 break
             case 'item':
-                get_item(option, cb)
+                getItem(option, cb)
                 break
             case 'item/travel':
                 travel(option)
-                get_item(option, cb)
+                getItem(option, cb)
                 break
             case 'attr':
-                change_attr(option, cb)
+                changeAttr(option, cb)
                 break
             case 'attr/travel':
-                change_attr(option)
+                changeAttr(option)
                 travel(option, cb)
                 break
             case 'item/lose_item/travel':
-                get_item(option)
-                lose_item(option)
+                getItem(option)
+                loseItem(option)
                 travel(option, cb)
                 break
             case 'death':
@@ -48,12 +47,10 @@ app.factory('gameFactory', function($http, $location, $window){
         }
     }
 
-    factory.refresh = function() {
-        game.refresh()
-    }
+    factory.refresh = GameStateManager.refresh
 
-    factory.get_situation = function(hero, cb) {
-        cb(game.getSituation(hero))
+    factory.getSituation = function(hero, cb) {
+        cb(GameStateManager.getSituation(hero))
     }
 
     function travel(option, cb=null) {
@@ -64,28 +61,28 @@ app.factory('gameFactory', function($http, $location, $window){
         })
     }
 
-    function get_item(option, cb=null) {
-        $http.post('/get_item', {item: option.name}).then(function(output) {
+    function getItem(option, cb=null) {
+        $http.post('/getItem', {item: option.name}).then(function(output) {
             if (cb) {
                 cb()
             }
         })
     }
 
-    function lose_item(option, cb=null) {
-        $http.post('/lose_item', {item: option.lost_name}).then(function(output) {
+    function loseItem(option, cb=null) {
+        $http.post('/loseItem', {item: option.lost_name}).then(function(output) {
             if (cb) {
                 cb()
             }
         })
     }
 
-    function change_attr(option, cb=null) {
-        game.changeAttr(option)
+    function changeAttr(option, cb=null) {
+        GameStateManager.changeAttr(option)
         if (cb) {
             cb()
         }
     }
 
-    return factory;
+    return factory
 })

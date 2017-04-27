@@ -1,7 +1,6 @@
-let mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+const mongoose = require('mongoose')
 
-let loserSchema = mongoose.Schema({
+mongoose.model('Loser', mongoose.Schema({
     name: String,
     time_played: Number,
     cause_of_death: String,
@@ -15,6 +14,4 @@ let loserSchema = mongoose.Schema({
         "flashlight": {type: Boolean, default: false},
         "eva": {type: Boolean, default: false}
     }
-}, {timestamps: true})
-
-mongoose.model('Loser', loserSchema)
+}, {timestamps: true}))

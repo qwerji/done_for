@@ -1,35 +1,47 @@
-let mongoose = require('mongoose'),
+const mongoose = require('mongoose'),
     Loser = mongoose.model('Loser'),
     Winner = mongoose.model('Winner')
 
-module.exports = (function(){
+module.exports = (() => {
     return {
-        get_losers: function(req, res) {
+        getLosers: (req, res) => {
             if (!req.session.user) {
-                return res.json({loser: false})
+                return res.json({ loser: false })
             }
-            Loser.findOne({_id: req.session.user}, function(err, loser) {
-                Loser.find({}, function(err, losers) {
+            Loser.findOne({ _id: req.session.user }, (err, loser) => {
+                Loser.find({}, (err, losers) => {
                     if (err) { console.log(err) }
-                    if (losers) {
-                        losers.splice(losers.length-1,1)
-                        res.json({loser: loser, losers: losers})
+                    if (losers && loser) {
+                        // Remove the current loser from the recents array
+                        for (let i = 0; i < losers.length; i++) {
+                            if (String(losers[i]._id) == String(loser._id)) {
+                                losers.splice(i,1)
+                                break
+                            }
+                        }
+                        res.json({ loser: loser, losers: losers })
                     } else {
                         res.json(null)
                     }
                 })
             })
         },
-        get_winners: function(req, res) {
+        getWinners: (req, res) => {
             if (!req.session.user) {
-                return res.json({winner: false})
+                return res.json({ winner: false })
             }
-            Winner.findOne({_id: req.session.user}, function(err, winner) {
-                Winner.find({}, function(err, winners) {
+            Winner.findOne({ _id: req.session.user }, (err, winner) => {
+                Winner.find({}, (err, winners) => {
                     if (err) { console.log(err) }
-                    if (winners) {
-                        winners.splice(winners.length-1,1)
-                        res.json({winner: winner, winners: winners})
+                    if (winners && winner) {
+                        // Remove the current winner from the recents array
+                        for (let i = 0; i < winners.length; i++) {
+                            if (String(winners[i]._id) == String(winner._id)) {
+                                winners.splice(i,1)
+                                break
+                            }
+                        }
+                        res.json({ winner: winner, winners: winners })
                     } else {
                         res.json(null)
                     }

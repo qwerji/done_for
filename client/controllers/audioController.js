@@ -1,35 +1,46 @@
 app.controller('audioController', function($scope, ngAudio) {
 
-    const soundtrack = ngAudio.load('./../sounds/donefor_v1.wav')
-    const mouseover = ngAudio.load('./../sounds/df_mouse.wav')
-    const mousedown = ngAudio.load('./../sounds/df_click.wav')
+    // Load audio files
+    const soundtrack = ngAudio.load('./../sounds/donefor_v1.wav'),
+        mouseover = ngAudio.load('./../sounds/df_mouse.wav'),
+        mousedown = ngAudio.load('./../sounds/df_click.wav')
+
     soundtrack.loop = true
 
-    $scope.startSoundtrack = function() {
+    $scope.startSoundtrack = () => {
         soundtrack.play()
     }
 
-    $scope.mute = function() {
+    // Mute all audio tracks, UI change, localStorage
+    $scope.mute = () => {
         if (soundtrack.muting) {
             soundtrack.muting = false
             mouseover.muting = false
             mousedown.muting = false
             $scope.muteText = 'ON'
+            localStorage.setItem('mute', 0)
         } else {
             soundtrack.muting = true
             mouseover.muting = true
             mousedown.muting = true
             $scope.muteText = 'OFF'
+            localStorage.setItem('mute', 1)
         }
     }
 
     $scope.muteText = 'ON'
 
-    $scope.mouseover = function() {
+    // Plays the mouseover sounds for buttons
+    $scope.mouseover = () => {
         mouseover.play()
     }
 
-    $scope.mousedown = function() {
+    $scope.mousedown = () => {
         mousedown.play()
+    }
+
+    // Get the saved mute state if it exists
+    if (localStorage.getItem('mute') === 1) {
+        $scope.mute()
     }
 })

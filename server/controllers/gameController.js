@@ -1,12 +1,12 @@
-let mongoose = require('mongoose'),
+const mongoose = require('mongoose'),
     User = mongoose.model('User'),
     Loser = mongoose.model('Loser'),
     Winner = mongoose.model('Winner')
 
-module.exports = (function(){
+module.exports = (() => {
     return {
-        go: function(req, res){
-            User.findOne({_id: req.session.user}, function(err, user){
+        go: (req, res) => {
+            User.findOne({_id: req.session.user}, (err, user) => {
                 if (err) { console.log(err) }
                 if (user) {
                     user.location = req.body.dest
@@ -17,8 +17,8 @@ module.exports = (function(){
                 }
             })
         },
-        get_item: function(req, res) {
-            User.findOne({_id: req.session.user}, function(err, user){
+        getItem: (req, res) => {
+            User.findOne({_id: req.session.user}, (err, user) => {
                 if (err) { console.log(err) }
                 if (user) {
                     user.inventory[req.body.item] = true
@@ -29,8 +29,8 @@ module.exports = (function(){
                 }
             })
         },
-        lose_item: function(req, res) {
-            User.findOne({_id: req.session.user}, function(err, user){
+        loseItem: (req, res) => {
+            User.findOne({_id: req.session.user}, (err, user) => {
                 if (err) { console.log(err) }
                 if (user) {
                     user.inventory[req.body.item] = false
@@ -41,8 +41,8 @@ module.exports = (function(){
                 }
             })
         },
-        die: function(req, res) {
-            User.findOne({_id: req.session.user}, function(err, user){
+        die: (req, res) => {
+            User.findOne({_id: req.session.user}, (err, user) => {
                 if (err) { console.log(err) }
                 if (user) {
                     let new_loser = new Loser({
@@ -53,7 +53,7 @@ module.exports = (function(){
                         inventory: user.inventory,
                         _id: user._id
                     })
-                    new_loser.save(function(err, loser) {
+                    new_loser.save((err, loser) => {
                         if (err) { console.log(err) }
                         user.remove()
                         res.json({status: true})
@@ -63,17 +63,17 @@ module.exports = (function(){
                 }
             })
         },
-        win: function(req, res) {
-            User.findOne({ _id: req.session.user }, function(err, user) {
+        win: (req, res) => {
+            User.findOne({ _id: req.session.user }, (err, user) => {
                 if (err) { console.log(err) }
                 if (user) {
-                    let new_winner = new Winner({
+                    const new_winner = new Winner({
                         name: user.name,
                         time_played: user.time_played,
                         inventory: user.inventory,
                         _id: user._id
                     })
-                    new_winner.save(function(err, winner) {
+                    new_winner.save((err, winner) => {
                         if (err) { console.log(err) }
                         user.remove()
                         res.json({ status: true })

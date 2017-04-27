@@ -137,10 +137,10 @@ div.hud {
     margin-bottom: 5px;
 }
 .imgContainer {
+    margin: 0;
     padding: 5px;
     background: #464646;
     height: 250px;
-    width: 98%;
 }
     .imgContainer img {
         display: block;
@@ -202,10 +202,11 @@ div.hud {
     .imgSpacer {
         display: inline-block;
         width: 49.5%;
-        padding-right: 0.5%;
+        margin-right: 0.5%;
     }
     .imgContainer {
         display: inline-block;
+        width: 98%;
     }
     
     div.promptContainer {

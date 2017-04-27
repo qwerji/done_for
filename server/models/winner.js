@@ -1,7 +1,6 @@
-let mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+const mongoose = require('mongoose')
 
-let winnerSchema = mongoose.Schema({
+mongoose.model('Winner', mongoose.Schema({
     name: String,
     time_played: Number,
     inventory: {
@@ -13,6 +12,4 @@ let winnerSchema = mongoose.Schema({
         "flashlight": Boolean,
         "eva": Boolean
     }
-}, {timestamps: true})
-
-mongoose.model('Winner', winnerSchema)
+}, {timestamps: true}))

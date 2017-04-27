@@ -1,6 +1,5 @@
 const app = angular.module('app', ['ngRoute', 'ngAudio'])
 
-
 app.config(function($routeProvider){
     $routeProvider
     .when('/login', {
@@ -26,6 +25,6 @@ app.config(function ($qProvider) { // stops possibly unhandled rejection
     $qProvider.errorOnUnhandledRejections(false);
 })
 
-app.run(function(sessionFactory){ // clear session on page reload
-    sessionFactory.clear_session()
+app.run(function(sessionFactory) { // clear session on page reload
+    sessionFactory.clearSession()
 })

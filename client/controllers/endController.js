@@ -1,9 +1,11 @@
 app.controller('endController', function($scope, endFactory) {
-    endFactory.get_losers(function(losers) {
+    // Gets losers and winners, but only displays one for now
+    // Eventually I want to display both if you win or lose
+    endFactory.getLosers(losers => {
         $scope.loser = losers.loser
         $scope.losers = losers.losers
     })
-    endFactory.get_winners(function(winners) {
+    endFactory.getWinners(winners => {
         $scope.winner = winners.winner
         $scope.winners = winners.winners
     })

@@ -1,11 +1,11 @@
-let mongoose = require('mongoose'),
+const mongoose = require('mongoose'),
     User = mongoose.model('User')
 
-module.exports = (function(){
+module.exports = (() => {
     return {
-        login: function(req, res){
-            let newUser = new User(req.body)
-            newUser.save(function(err, user){
+        login: (req, res) => {
+            const newUser = new User(req.body)
+            newUser.save((err, user) => {
                 if (err) { console.log(err) }
                 if(user){
                     req.session.user = user._id
@@ -16,8 +16,8 @@ module.exports = (function(){
                 }
             })
         },
-        curUser: function(req, res){
-            User.findOne({_id: req.session.user}, function(err, user){
+        curUser: (req, res) => {
+            User.findOne({_id: req.session.user}, (err, user) => {
                 if (err) { console.log(err) }
                 if (user){
                     if (req.body.time) {
@@ -30,7 +30,7 @@ module.exports = (function(){
                 }
             })
         },
-        logout: function(req, res){
+        logout: (req, res) => {
             req.session.destroy()
             res.json({status: true})
         }
