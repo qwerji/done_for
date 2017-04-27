@@ -1,7 +1,8 @@
 # [Done For](http://donefor.bentswanson.com)
 A choose-your-own-adventure game built with the MEAN stack.
 
-![EVA](https://github.com/qwerji/done_for/blob/master/client/imgs/items/eva.svg?raw=true "EVA")
+<img src="?raw=true "EVA")
+<img src="https://cdn.rawgit.com/qwerji/done_for/blob/master/client/imgs/items/eva.svg" width="160px" />
 
 Story by [Ty Warren](https://github.com/punkty) and [Ben Swanson](https://github.com/qwerji).
 
