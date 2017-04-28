@@ -18,13 +18,11 @@ app.controller('audioController', function($scope, ngAudio) {
             mouseover.muting = false
             mousedown.muting = false
             $scope.muteText = 'ON'
-            localStorage.setItem('mute', 0)
         } else {
             soundtrack.muting = true
             mouseover.muting = true
             mousedown.muting = true
             $scope.muteText = 'OFF'
-            localStorage.setItem('mute', 1)
         }
     }
 
@@ -37,10 +35,5 @@ app.controller('audioController', function($scope, ngAudio) {
 
     $scope.mousedown = () => {
         mousedown.play()
-    }
-
-    // Get the saved mute state if it exists
-    if (localStorage.getItem('mute') === 1) {
-        $scope.mute()
     }
 })

@@ -497,10 +497,7 @@ const GameStateManager = (() => {
 
     publicMethods.getSituation = hero => {
         // Creates a deep clone of the situation object
-        console.log(JSON.stringify(worldMap[hero.location]))
-        console.log(worldMap[hero.location])
         const situation = JSON.parse(JSON.stringify(worldMap[hero.location]))
-        console.log(situation)
         // Filter out any items you already have
         removeItem(situation, hero)
         // Filter the situation with the location filter or this function
