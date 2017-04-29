@@ -2,10 +2,11 @@ const express = require('express'),
     app = express(),
     path = require('path'),
     session = require('express-session'),
+    key = require('./sessionkey.js').key,
     port = 8000
 
 app.use(session({
-    secret: 'keyboard cat',
+    secret: key,
     resave: true,
     saveUninitialized: false
 }))
