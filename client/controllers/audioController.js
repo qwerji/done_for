@@ -1,9 +1,9 @@
-app.controller('audioController', function($scope, ngAudio) {
+app.controller('audioController', function($scope, $window) {
 
     // Load audio files
-    const soundtrack = ngAudio.load('./../sounds/donefor_v1.wav'),
-        mouseover = ngAudio.load('./../sounds/df_mouse.wav'),
-        mousedown = ngAudio.load('./../sounds/df_click.wav')
+    const soundtrack = new Audio('./../sounds/donefor_v1.wav'),
+        mouseover = new Audio('./../sounds/df_mouse.wav'),
+        mousedown = new Audio('./../sounds/df_click.wav')
 
     soundtrack.loop = true
 
@@ -11,24 +11,6 @@ app.controller('audioController', function($scope, ngAudio) {
         soundtrack.play()
     }
 
-    // Mute all audio tracks, UI change, localStorage
-    $scope.mute = () => {
-        if (soundtrack.muting) {
-            soundtrack.muting = false
-            mouseover.muting = false
-            mousedown.muting = false
-            $scope.muteText = 'ON'
-        } else {
-            soundtrack.muting = true
-            mouseover.muting = true
-            mousedown.muting = true
-            $scope.muteText = 'OFF'
-        }
-    }
-
-    $scope.muteText = 'ON'
-
-    // Plays the mouseover sounds for buttons
     $scope.mouseover = () => {
         mouseover.play()
     }
@@ -36,4 +18,28 @@ app.controller('audioController', function($scope, ngAudio) {
     $scope.mousedown = () => {
         mousedown.play()
     }
+
+    // Mute all audio tracks, UI change, localStorage
+    $scope.mute = () => {
+        if (soundtrack.muted) {
+            soundtrack.muted = false
+            mouseover.muted = false
+            mousedown.muted = false
+            $scope.muteText = 'ON'
+        } else {
+            soundtrack.muted = true
+            mouseover.muted = true
+            mousedown.muted = true
+            $scope.muteText = 'OFF'
+        }
+        $window.localStorage.setItem('audio', $scope.muteText)
+    }
+
+    $scope.muteText = 'ON'
+
+    if ($window.localStorage.getItem('audio') === 'OFF') {
+        soundtrack.muted = false
+        $scope.mute()
+    }
+
 })

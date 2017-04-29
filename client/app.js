@@ -1,6 +1,6 @@
-const app = angular.module('app', ['ngRoute', 'ngAudio'])
+const app = angular.module('app', ['ngRoute'])
 
-app.config(function($routeProvider){
+app.config(function($routeProvider, $qProvider){
     $routeProvider
     .when('/login', {
         templateUrl:'partials/login.html',
@@ -19,10 +19,9 @@ app.config(function($routeProvider){
         controller: 'sessionController'
     })
     .otherwise('/login')
-})
 
-app.config(function ($qProvider) { // stops possibly unhandled rejection
-    $qProvider.errorOnUnhandledRejections(false);
+    $qProvider.errorOnUnhandledRejections(false) 
+    // stops possibly unhandled rejection
 })
 
 app.run(function(sessionFactory) { // clear session on page reload

@@ -1,4 +1,4 @@
-app.controller('gameController', function($scope, sessionFactory, gameFactory, $location, ngAudio, $window) {
+app.controller('gameController', function($scope, sessionFactory, gameFactory, $location, $window) {
 
     // Recieves a user action in the form of an option object
     $scope.do = option => {
