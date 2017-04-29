@@ -1,4 +1,4 @@
-app.factory('sessionFactory', function($http, $location){
+app.factory('sessionFactory', function($http, $location) {
 
     const factory = {}
 

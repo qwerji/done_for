@@ -1,4 +1,4 @@
-app.factory('gameFactory', function($http, $location, $window){
+app.factory('gameFactory', function($http, $location) {
 
     const factory = {}
 
@@ -55,33 +55,25 @@ app.factory('gameFactory', function($http, $location, $window){
 
     function travel(option, cb=null) {
         $http.post('/go', {dest: option.dest}).then(function(output){
-            if (cb) {
-                cb()
-            }
+            if (cb) { cb() }
         })
     }
 
     function getItem(option, cb=null) {
         $http.post('/getItem', {item: option.name}).then(function(output) {
-            if (cb) {
-                cb()
-            }
+            if (cb) { cb() }
         })
     }
 
     function loseItem(option, cb=null) {
         $http.post('/loseItem', {item: option.lost_name}).then(function(output) {
-            if (cb) {
-                cb()
-            }
+            if (cb) { cb() }
         })
     }
 
     function changeAttr(option, cb=null) {
         GameStateManager.changeAttr(option)
-        if (cb) {
-            cb()
-        }
+        if (cb) { cb() }
     }
 
     return factory

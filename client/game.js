@@ -229,6 +229,20 @@ const GameStateManager = (() => {
 
     let attributes = {}
 
+    function getFreshAttributes() {
+        return {
+            'used_staircase': false,
+            'is_in_wastes': false,
+            'wastes_coords': [0, 0],
+            'opening_depth': 0,
+            'monster_killed': false,
+            'alien_flashlight': false,
+            'alien_rude': false,
+            'floor_lasered': false,
+            'switches': [true, false, false]
+        }
+    }
+
     function changeAttr(option) {
         // Wastes coordinates attribute changes
         if (option.attr == 'n_wastes') {
@@ -264,20 +278,6 @@ const GameStateManager = (() => {
             } else {
                 attributes[option.attr] = false
             }
-        }
-    }
-
-    function getFreshAttributes(argument) {
-        return {
-            'used_staircase': false,
-            'is_in_wastes': false,
-            'wastes_coords': [0, 0],
-            'opening_depth': 0,
-            'monster_killed': false,
-            'alien_flashlight': false,
-            'alien_rude': false,
-            'floor_lasered': false,
-            'switches': [true, false, false]
         }
     }
 
@@ -502,10 +502,8 @@ const GameStateManager = (() => {
         removeItem(situation, hero)
         // Filter the situation with the location filter or this function
         // which just returns the raw situation
-        const filter = filterLocation[hero.location] || ((s,h) => s)
-        const filtered = filter(situation, hero)
-        // console.log(filtered)
-        return filtered
+        const filter = filterLocation[hero.location] || (s => s)
+        return filter(situation, hero)
     }
 
     publicMethods.changeAttr = option => {
